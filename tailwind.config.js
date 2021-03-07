@@ -1,13 +1,21 @@
 const colors = require('tailwindcss/colors');
+const { fontFamily } = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  purge: [],
+  purge: ['./docs/public/index.html', './docs/src/**/*.{vue,js,ts,jsx,tsx}'],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {
       colors: {
-        'litepie-primary': colors.indigo,
+        cyan: colors.cyan,
+        fuchsia: colors.fuchsia,
+        lime: colors.lime,
+        'light-blue': colors.lightBlue,
+        'litepie-primary': colors.lightBlue,
         'litepie-secondary': colors.coolGray
+      },
+      fontFamily: {
+        sans: ['Inter', ...fontFamily.sans]
       }
     }
   },
@@ -15,7 +23,7 @@ module.exports = {
     extend: {
       cursor: ['disabled'],
       textOpacity: ['disabled'],
-      textColor: ['disabled'],
+      textColor: ['disabled']
     }
   },
   plugins: []

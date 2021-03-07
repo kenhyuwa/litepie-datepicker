@@ -11,6 +11,7 @@
             <div class="w-full">
               <vue3-tailwind-datepicker
                 ref="s"
+                overlay
                 :use-range="true"
                 :formatter="formatter"
                 v-model="dateValue"
@@ -92,7 +93,7 @@ export default defineComponent({
       //   startDate: new Date(2021, 9, 1),
       //   endDate: '2021-09-01'
       // };
-      // dateValue.value = [new Date(2019, 9, 8), new Date(2019, 9, 19)];
+      dateValue.value = [new Date(2019, 9, 8), new Date(2019, 9, 19)];
       // dateValue.value = `${new Date(2019, 9, 8).toString()} ~ ${new Date(
       //   2019,
       //   9,

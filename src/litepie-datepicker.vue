@@ -9,7 +9,7 @@
     ]"
     v-litepie:away="trigger"
   >
-    <slot :value="value">
+    <slot :value="value" :placeholder="givenPlaceholder">
       <label class="relative block">
         <input
           ref="LitepieInputRef"
@@ -1478,7 +1478,7 @@ export default /*#__PURE__*/ defineComponent({
   content: '';
   @apply fixed inset-0 bg-black hidden opacity-0 transition-opacity ease-out duration-200;
 }
-.litepie-datepicker-overlay .open::before {
+.litepie-datepicker-overlay.open::before {
   @apply block opacity-50;
 }
 .litepie-datepicker {

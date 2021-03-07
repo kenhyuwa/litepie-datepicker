@@ -60,32 +60,35 @@ export const useToValueFromArray = (
 export const useDirective = binding => {
   const { instance, arg, value } = binding;
   document.body.addEventListener('click', $event => {
-    if ($event.target.classList.contains('open')) {
+    if ($event.target.classList.contains('litepie-datepicker-overlay')) {
       return (instance.isShow = false);
+    } else {
+      console.log($event.target)
+      if (instance.LitepieDatepickerRef) {
+        const { autoApply, previous, next } = instance;
+        const target = $event.target.classList.contains(
+          'litepie-datepicker-date'
+        );
+        if (target && autoApply && !previous && !next) {
+          return (instance.isShow = false);
+        }
+        if (
+          !autoApply &&
+          $event.target.classList.contains(`${arg}-apply-picker`) &&
+          instance.value !== ''
+        ) {
+          return (instance.isShow = false);
+        }
+        if ($event.target.classList.contains(`${arg}-cancel-picker`)) {
+          return (instance.isShow = false);
+        }
+
+        return (instance.isShow =
+          instance.LitepieDatepickerRef.contains($event.target) ||
+          document.getElementById(value) === $event.target ||
+          value === $event.target);
+      }
+      return (instance.isShow = true);
     }
-    if (instance.LitepieDatepickerRef) {
-      const { autoApply, previous, next } = instance;
-      const target = $event.target.classList.contains(
-        'litepie-datepicker-date'
-      );
-      if (target && autoApply && !previous && !next) {
-        return (instance.isShow = false);
-      }
-      if (
-        !autoApply &&
-        $event.target.classList.contains(`${arg}-apply-picker`) &&
-        instance.value !== ''
-      ) {
-        return (instance.isShow = false);
-      }
-      if ($event.target.classList.contains(`${arg}-cancel-picker`)) {
-        return (instance.isShow = false);
-      }
-      return (instance.isShow =
-        instance.LitepieDatepickerRef.contains($event.target) ||
-        document.getElementById(value) === $event.target ||
-        value === $event.target);
-    }
-    return (instance.isShow = true);
   });
 };
