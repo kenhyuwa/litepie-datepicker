@@ -301,7 +301,7 @@ export default /*#__PURE__*/ defineComponent({
       default: true
     },
     trigger: {
-      type: [String, HTMLButtonElement],
+      type: String,
       default: null
     },
     autoApply: {
