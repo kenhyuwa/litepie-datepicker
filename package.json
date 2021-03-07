@@ -58,7 +58,7 @@
     "autoprefixer": "^9.8.6",
     "cross-env": "^7.0.3",
     "dayjs": "^1.10.4",
-    "litepie-datepicker": "file:litepie-datepicker-1.0.0.tgz",
+    "litepie-datepicker": "^1.0.0",
     "minimist": "^1.2.5",
     "postcss": "^7.0.35",
     "prismjs": "^1.23.0",
