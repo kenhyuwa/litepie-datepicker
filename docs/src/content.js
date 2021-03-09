@@ -4,7 +4,7 @@ const colors = require('tailwindcss/colors');
 
 module.exports = {
   purge: [
-    path.resolve(__dirname, './node_modules/litepie-datepicker/dist/*.js')
+    path.resolve(__dirname, './node_modules/litepie-datepicker/**/*.js')
   ],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
@@ -410,16 +410,42 @@ export default {
   <div class="flex">
     <litepie-datepicker
       v-model="dateValue"
-      v-slot="{ value }"
+      v-slot="{ value, placeholder, clear }"
     >
-      <button
-        type="button"
-        class="w-full sm:w-auto flex-none bg-gray-50 text-gray-400 hover:text-gray-900 leading-6 py-3 sm:px-6 border border-gray-200 rounded-xl flex items-center justify-center space-x-2 sm:space-x-4 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-300 focus:outline-none transition ease-out duration-300"
-      >
-        <span class="text-gray-900">
-          {{ value || 'Litepie datepicker' }}
-        </span>
-      </button>
+      <div class="flex">
+        <div class="flex-1">
+          <button
+            type="button"
+            class="block w-full bg-gray-50 text-gray-400 hover:text-gray-900 leading-6 py-3 sm:px-6 border border-gray-200 rounded-xl flex items-center justify-center space-x-2 sm:space-x-4 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-300 focus:outline-none transition ease-out duration-300"
+          >
+            <span class="text-gray-900">
+              {{ value || placeholder }}
+            </span>
+          </button>
+        </div>
+        <div class="flex-shrink-0">
+          <button
+            type="button"
+            class="ml-4 block px-3 flex-none bg-indigo-50 text-indigo-400 hover:text-indigo-900 leading-6 py-3 sm:px-6 border border-indigo-200 rounded-xl flex items-center justify-center space-x-2 sm:space-x-4 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-indigo-300 focus:outline-none transition ease-out duration-300"
+            @click="clear"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
     </litepie-datepicker>
   </div>
 </template>

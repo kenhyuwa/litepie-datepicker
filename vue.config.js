@@ -12,7 +12,8 @@ module.exports = {
             filename: 'index.html',
             // when using title option,
             // template title tag needs to be <title><%= htmlWebpackPlugin.options.title %></title>
-            title: 'Litepie Datepicker - A date range picker component for Vue.js and Tailwind CSS, dependent to day.js',
+            title:
+              'Litepie Datepicker - A date range picker component for Vue.js and Tailwind CSS, dependent to day.js',
             // chunks to include on this page, by default includes
             // extracted common chunks and vendor chunks.
             chunks: ['chunk-vendors', 'chunk-common', 'index']

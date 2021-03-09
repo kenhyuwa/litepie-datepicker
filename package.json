@@ -1,6 +1,6 @@
 {
   "name": "litepie-datepicker",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A date range picker component for Vue.js and Tailwind CSS, dependent to day.js",
   "main": "dist/litepie-datepicker.ssr.js",
   "browser": "dist/litepie-datepicker.esm.js",
@@ -41,7 +41,7 @@
     "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife",
-    "build:doc": "vue-cli-service build"
+    "build:doc": "vue-cli-service build && npx tailwind build ./docs/src/styles.css -o ./docs/dist/css/prims.css"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
@@ -58,7 +58,7 @@
     "autoprefixer": "^9.8.6",
     "cross-env": "^7.0.3",
     "dayjs": "^1.10.4",
-    "litepie-datepicker": "^1.0.0",
+    "litepie-datepicker": "^1.0.2",
     "minimist": "^1.2.5",
     "postcss": "^7.0.35",
     "prismjs": "^1.23.0",

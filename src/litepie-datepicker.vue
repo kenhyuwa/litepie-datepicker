@@ -9,7 +9,7 @@
     ]"
     v-litepie:away="trigger"
   >
-    <slot :value="value" :placeholder="givenPlaceholder">
+    <slot :value="value" :placeholder="givenPlaceholder" :clear="clearPicker">
       <label class="relative block">
         <input
           ref="LitepieInputRef"
@@ -791,6 +791,13 @@ export default /*#__PURE__*/ defineComponent({
       }
     };
 
+    // TODO: Working with date time
+    const setHours = (asNext = false) => {};
+
+    const setMinutes = (asNext = false) => {};
+
+    const setSeconds = (asNext = false) => {};
+
     const applyDate = () => {
       if (applyValue.value.length < 1) return false;
       let date;
@@ -1466,6 +1473,9 @@ export default /*#__PURE__*/ defineComponent({
       show,
       hide,
       setDate,
+      setHours,
+      setMinutes,
+      setSeconds,
       applyDate,
       clearPicker
     };

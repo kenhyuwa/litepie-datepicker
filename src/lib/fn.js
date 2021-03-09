@@ -63,7 +63,6 @@ export const useDirective = binding => {
     if ($event.target.classList.contains('litepie-datepicker-overlay')) {
       return (instance.isShow = false);
     } else {
-      console.log($event.target)
       if (instance.LitepieDatepickerRef) {
         const { autoApply, previous, next } = instance;
         const target = $event.target.classList.contains(

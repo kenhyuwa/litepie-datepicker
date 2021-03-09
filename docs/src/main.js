@@ -5,7 +5,6 @@ import LitepieDatepicker from 'litepie-datepicker';
 import VPrims from './prims';
 
 import 'tailwindcss/tailwind.css';
-import './prims.css';
 
 const app = createApp(App);
 

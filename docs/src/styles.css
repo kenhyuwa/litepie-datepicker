@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
 
+.after\:hash::after {
+  content: '#';
+}
+code {
+  @apply text-purple-600 tracking-tight;
+}
+
 code[class*='language-'],
 pre[class*='language-'] {
   text-align: left;

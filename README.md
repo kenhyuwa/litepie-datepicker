@@ -68,7 +68,7 @@ export default {
 All notable changes to this project will be documented in this file, [Read](CHANGELOG.md).
 
 ## License
-The MIT License [MIT](LICENSE). Please [see](http://opensource.org/licenses/MIT) for more information.
+The [MIT](LICENSE) License. Please [see](http://opensource.org/licenses/MIT) for more information.
 
 ## Thanks to
 - [Vue](https://v3.vuejs.org/)

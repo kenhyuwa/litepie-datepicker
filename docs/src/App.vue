@@ -119,7 +119,7 @@
                 <litepie-datepicker
                   ref="myRef"
                   v-model="heroModel"
-                  v-slot="{ value }"
+                  v-slot="{ value, placeholder }"
                   :auto-apply="false"
                   :formatter="formatter"
                 >
@@ -128,7 +128,7 @@
                     class="w-full sm:w-auto flex-none bg-gray-50 text-gray-400 hover:text-gray-900 font-mono leading-6 py-3 sm:px-6 border border-gray-200 rounded-xl flex items-center justify-center space-x-2 sm:space-x-4 focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-gray-300 focus:outline-none transition ease-out duration-300"
                   >
                     <span class="text-gray-900">
-                      {{ value }}
+                      {{ value || placeholder }}
                     </span>
                   </button>
                 </litepie-datepicker>
@@ -153,6 +153,50 @@
                 project.
               </p>
             </div>
+            <div
+              class="mt-6 px-6 py-5 bg-yellow-50 border border-yellow-100 rounded-lg"
+            >
+              <div class="flex items-center">
+                <span class="text-yellow-400">
+                  <svg
+                    class="w-6 h-6 lg:w-8 lg:h-8"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11"
+                    ></path>
+                  </svg>
+                </span>
+                <span class="font-semibold"> Warning! </span>
+              </div>
+              <div class="mt-2">
+                <p>
+                  Litepie Datepicker use
+                  <a
+                    href="https://tailwindcss.com"
+                    class="font-semibold text-light-blue-400"
+                    target="_blank"
+                  >
+                    Tailwind CSS
+                  </a>
+                  &
+                  <a
+                    href="https://day.js.org"
+                    class="font-semibold text-orange-400"
+                    target="_blank"
+                  >
+                    Day.js
+                  </a>
+                  <i>under the hood</i> , You must installing before.
+                </p>
+              </div>
+            </div>
           </div>
           <div id="install-via-npm" class="pt-6 sm:pt-8">
             <h3 class="group flex items-center font-semibold">
@@ -169,6 +213,25 @@
               <div class="bg-light-blue-500">
                 <v-prims language="atom">
                   $ npm install -S litepie-datepicker
+                </v-prims>
+              </div>
+            </div>
+          </div>
+          <div id="install-via-yarn" class="pt-6 sm:pt-8">
+            <h3 class="group flex items-center font-semibold">
+              <a
+                href="#install-via-yarn"
+                class="absolute after:hash opacity-0 group-hover:opacity-100 -ml-4 text-light-blue-400"
+                aria-label="Anchor"
+              ></a>
+              <span class="text-lg text-gray-900">
+                Install via yarn
+              </span>
+            </h3>
+            <div class="rounded-xl overflow-hidden my-6">
+              <div class="bg-light-blue-500">
+                <v-prims language="atom">
+                  $ yarn add litepie-datepicker
                 </v-prims>
               </div>
             </div>
@@ -264,7 +327,7 @@
                 </div>
                 <div class="w-full">
                   <litepie-datepicker
-                    v-model="dateValueDefault"
+                    v-model="dateValue.ligth"
                     :formatter="formatter"
                   />
                 </div>
@@ -292,7 +355,7 @@
                 </div>
                 <div class="dark w-full">
                   <litepie-datepicker
-                    v-model="dateValueDefault"
+                    v-model="dateValue.dark"
                     :formatter="formatter"
                   />
                 </div>
@@ -333,7 +396,7 @@
                 <div>
                   <litepie-datepicker
                     :formatter="playFormatter"
-                    v-model="dateValueDefault"
+                    v-model="dateValue.defaults"
                   />
                 </div>
                 <div>
@@ -364,7 +427,7 @@
                   <litepie-datepicker
                     :overlay="true"
                     :formatter="playFormatter"
-                    v-model="dateValueDefault"
+                    v-model="dateValue.overlay"
                   />
                 </div>
                 <div>
@@ -395,7 +458,7 @@
                   <litepie-datepicker
                     as-single
                     :formatter="playFormatter"
-                    v-model="dateValueDefault"
+                    v-model="dateValue.asSingle"
                   />
                 </div>
                 <div>
@@ -427,7 +490,7 @@
                     as-single
                     use-range
                     :formatter="playFormatter"
-                    v-model="dateValueDefault"
+                    v-model="dateValue.asSingleUseRange"
                   />
                 </div>
                 <div>
@@ -461,7 +524,7 @@
                   <litepie-datepicker
                     placeholder="My Placeholder"
                     :formatter="playFormatter"
-                    v-model="dateValueDefault"
+                    v-model="dateValue.placeholder"
                   />
                 </div>
                 <div>
@@ -495,7 +558,7 @@
                   <litepie-datepicker
                     separator=" to "
                     :formatter="playFormatter"
-                    v-model="dateValueDefault"
+                    v-model="dateValue.separator"
                   />
                 </div>
                 <div>
@@ -528,7 +591,7 @@
                       date: 'DD MMM YYYY',
                       month: 'MMM'
                     }"
-                    v-model="dateValueDefault"
+                    v-model="dateValue.formatter"
                   />
                 </div>
                 <div>
@@ -559,7 +622,7 @@
                   <litepie-datepicker
                     :auto-apply="false"
                     :formatter="playFormatter"
-                    v-model="dateValueDefault"
+                    v-model="dateValue.autoApply"
                   />
                 </div>
                 <div>
@@ -590,7 +653,7 @@
                   <litepie-datepicker
                     :start-from="new Date(2020, 0, 1)"
                     :formatter="playFormatter"
-                    v-model="dateValueDefault"
+                    v-model="dateValue.startFrom"
                   />
                 </div>
                 <div>
@@ -621,7 +684,7 @@
                   <litepie-datepicker
                     :shortcuts="false"
                     :formatter="playFormatter"
-                    v-model="dateValueDefault"
+                    v-model="dateValue.shortcuts"
                   />
                 </div>
                 <div>
@@ -655,7 +718,7 @@
                         $event < new Date() || $event > new Date(2023, 0, 8)
                     "
                     :formatter="playFormatter"
-                    v-model="dateValueDefault"
+                    v-model="dateValue.disableDate"
                   />
                 </div>
                 <div>
@@ -690,7 +753,7 @@
                     "
                     :disable-in-range="false"
                     :formatter="playFormatter"
-                    v-model="dateValueDefault"
+                    v-model="dateValue.disableInRange"
                   />
                 </div>
                 <div>
@@ -725,7 +788,7 @@
                     <litepie-datepicker
                       trigger="open-datepicker"
                       :formatter="playFormatter"
-                      v-model="dateValueDefault"
+                      v-model="dateValue.trigger"
                     />
                   </div>
                   <div class="flex-shrink-0 ml-4">
@@ -765,17 +828,43 @@
                 <div>
                   <litepie-datepicker
                     :formatter="playFormatter"
-                    v-model="dateValueDefault"
-                    v-slot="{ value }"
+                    v-model="dateValue.slots"
+                    v-slot="{ value, placeholder, clear }"
                   >
-                    <button
-                      type="button"
-                      class="w-full flex-none bg-gray-50 text-gray-400 hover:text-gray-900 leading-6 py-3 sm:px-6 border border-gray-200 rounded-xl flex items-center justify-center space-x-2 sm:space-x-4 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-300 focus:outline-none transition ease-out duration-300"
-                    >
-                      <span class="text-gray-900">
-                        {{ value || 'Litepie datepicker' }}
-                      </span>
-                    </button>
+                    <div class="flex">
+                      <div class="flex-1">
+                        <button
+                          type="button"
+                          class="block w-full bg-gray-50 text-gray-400 hover:text-gray-900 leading-6 py-3 sm:px-6 border border-gray-200 rounded-xl flex items-center justify-center space-x-2 sm:space-x-4 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-300 focus:outline-none transition ease-out duration-300"
+                        >
+                          <span class="text-gray-900">
+                            {{ value || placeholder }}
+                          </span>
+                        </button>
+                      </div>
+                      <div class="flex-shrink-0">
+                        <button
+                          type="button"
+                          class="ml-4 block px-3 flex-none bg-indigo-50 text-indigo-400 hover:text-indigo-900 leading-6 py-3 sm:px-6 border border-indigo-200 rounded-xl flex items-center justify-center space-x-2 sm:space-x-4 focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-indigo-300 focus:outline-none transition ease-out duration-300"
+                          @click="clear"
+                        >
+                          <svg
+                            class="w-6 h-6"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M6 18L18 6M6 6l12 12"
+                            ></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
                   </litepie-datepicker>
                 </div>
                 <div>
@@ -790,7 +879,9 @@
             </div>
           </div>
         </section>
-        <section class="hidden relative px-4 sm:px-6 md:px-8 mb-14 sm:mb-20 xl:mb-8">
+        <section
+          class="hidden relative px-4 sm:px-6 md:px-8 mb-14 sm:mb-20 xl:mb-8"
+        >
           <h2
             class="text-3xl tracking-tight font-extrabold text-gray-900 mt-16 mb-8"
           >
@@ -924,7 +1015,7 @@
 
 <script>
 import dayjs from 'dayjs';
-import { ref, watchEffect } from 'vue';
+import { reactive, ref, watchEffect } from 'vue';
 import content from './content';
 
 export default {
@@ -941,9 +1032,26 @@ export default {
         .add(1, 'M')
         .format(formatter.value.date)
     ]);
-    const dateValueDefault = ref([]);
+    const dateValue = reactive({
+      light: [],
+      dark: [],
+      defaults: [],
+      overlay: [],
+      asSingle: [],
+      asSingleUseRange: [],
+      placeholder: [],
+      separator: [],
+      formatter: [],
+      autoApply: [],
+      startFrom: [],
+      shortcuts: [],
+      disableDate: [],
+      disableInRange: [],
+      trigger: [],
+      slots: []
+    });
     const playFormatter = ref({
-      date: 'YYYY-MMM-DD',
+      date: 'YYYY-MM-DD',
       month: 'MMM'
     });
 
@@ -970,7 +1078,7 @@ export default {
       myRef,
       formatter,
       heroModel,
-      dateValueDefault,
+      dateValue,
       playFormatter,
       defaultContent: content(),
       playground: content().playground
@@ -978,12 +1086,3 @@ export default {
   }
 };
 </script>
-
-<style>
-.after\:hash::after {
-  content: '#';
-}
-code {
-  @apply text-purple-600 tracking-tight;
-}
-</style>
