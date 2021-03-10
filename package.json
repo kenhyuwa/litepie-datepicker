@@ -41,7 +41,7 @@
     "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife",
-    "build:doc": "vue-cli-service build && npx tailwind build ./docs/src/styles.css -o ./docs/dist/css/prims.css"
+    "build:doc": "vue-cli-service build && npx tailwind build ./docs/src/styles.css -o ./docs/dist/css/prims.css && cp -r ./docs/public/img ./docs/dist/img && cp ./docs/public/favicon.ico ./docs/dist"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
@@ -53,6 +53,7 @@
     "@rollup/plugin-replace": "^2.3.4",
     "@tailwindcss/postcss7-compat": "^2.0.3",
     "@vue/cli-plugin-babel": "^4.5.10",
+    "@vue/cli-plugin-pwa": "^4.5.11",
     "@vue/cli-service": "^4.5.10",
     "@vue/compiler-sfc": "^3.0.5",
     "autoprefixer": "^9.8.6",

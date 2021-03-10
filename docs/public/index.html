@@ -5,13 +5,63 @@
   style="scroll-behavior: smooth;"
 >
   <head>
+    <title><%= htmlWebpackPlugin.options.title %></title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta
+      name="google-site-verification"
+      content="VkK4mUIl_iwYkWTt8m8IMapYk4DqmLwccZxeeAMHjVo"
+    />
+    <meta name="canonical" content="https://litepie.com/" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta property="og:url" content="https://litepie.com/" />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:description"
+      content="A date range picker component for Vue.js and Tailwind CSS, dependent to day.js."
+    />
+    <meta property="og:image" content="<%= BASE_URL %>img/logo.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="<%= BASE_URL %>img/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="<%= BASE_URL %>img/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="<%= BASE_URL %>img/favicon-16x16.png"
+    />
+    <link rel="manifest" href="<%= BASE_URL %>manifest.json" />
+    <link
+      rel="mask-icon"
+      href="<%= BASE_URL %>img/safari-pinned-tab.svg"
+      color="#00b4b6"
+    />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
-    <title><%= htmlWebpackPlugin.options.title %></title>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-    <link rel="stylesheet" href="/css/prims.css" />
+    <link rel="stylesheet" href="<%= BASE_URL %>css/prims.css" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-VGWNLNJE14"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'G-VGWNLNJE14');
+    </script>
   </head>
   <body>
     <noscript>
