@@ -37,7 +37,7 @@
               <span class="text-gray-300">
                 https://
               </span>
-              <span>litepie.com/#get-started</span>
+              <span>litepie.com/{{ $route.hash }}</span>
             </div>
           </div>
         </div>
@@ -115,7 +115,7 @@
               >
                 Get started
               </a>
-              <div>
+              <div class="flex-1 sm:flex-none">
                 <litepie-datepicker
                   ref="myRef"
                   v-model="heroModel"
@@ -327,7 +327,7 @@
                 </div>
                 <div class="w-full">
                   <litepie-datepicker
-                    v-model="dateValue.ligth"
+                    v-model="dateValue.light"
                     :formatter="formatter"
                   />
                 </div>
@@ -390,6 +390,9 @@
                   Default
                 </span>
               </h3>
+              <p>
+                This config if you don't need change any <code>`props`</code>.
+              </p>
               <div
                 class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
@@ -420,6 +423,11 @@
                   Overlay
                 </span>
               </h3>
+              <p>
+                Using date picker with backdrop, by default
+                <code>`overlay`</code> is
+                <i class="text-light-blue-400">false</i>.
+              </p>
               <div
                 class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
@@ -451,6 +459,10 @@
                   Single date
                 </span>
               </h3>
+              <p>
+                Using date picker as
+                <i class="text-light-blue-400">single date</i>.
+              </p>
               <div
                 class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
@@ -482,6 +494,11 @@
                   Single date use Range
                 </span>
               </h3>
+              <p>
+                Using date picker as
+                <i class="text-light-blue-400">single date</i>, but datepicker
+                with range.
+              </p>
               <div
                 class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
@@ -517,6 +534,10 @@
                   Placeholder
                 </span>
               </h3>
+              <p>
+                Change <i class="text-light-blue-400">placeholder</i>, by
+                default placeholder use <code>`formatter.date`</code> object.
+              </p>
               <div
                 class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
@@ -551,6 +572,10 @@
                   Separator
                 </span>
               </h3>
+              <p>
+                Change <i class="text-light-blue-400">separator</i>, by default
+                separator use <code>` ~ `</code>.
+              </p>
               <div
                 class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
@@ -582,6 +607,24 @@
                   Formatter
                 </span>
               </h3>
+              <p>
+                Change <i class="text-light-blue-400">formatter</i>, default
+                <code>`formatter`</code>:
+              </p>
+              <div class="mt-4 mb-2 rounded-xl overflow-hidden">
+                <div class="bg-light-blue-500">
+                  <v-prims
+                    language="js"
+                    :code="
+                      `{
+  date: 'YYYY-MM-DD HH:mm:ss',
+  month: 'MMM'
+}`
+                    "
+                  >
+                  </v-prims>
+                </div>
+              </div>
               <div
                 class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
@@ -615,6 +658,11 @@
                   Auto apply
                 </span>
               </h3>
+              <p>
+                Change <i class="text-light-blue-400">auto apply</i>, by default
+                <code>`autoApply`</code> is
+                <i class="text-light-blue-400">true</i>.
+              </p>
               <div
                 class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
@@ -646,6 +694,11 @@
                   Start from
                 </span>
               </h3>
+              <p>
+                Change <i class="text-light-blue-400">start from</i> of
+                datepicker, by default <code>`startFrom`</code> is
+                <i class="text-light-blue-400">new Date()</i>.
+              </p>
               <div
                 class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
@@ -724,8 +777,10 @@
                 <div>
                   <div class="rounded-xl overflow-hidden">
                     <div class="bg-light-blue-500">
-                      <v-prims language="html" :code="playground.disableDate">
-                      </v-prims>
+                      <v-prims
+                        language="html"
+                        :code="playground.disableDate"
+                      ></v-prims>
                     </div>
                   </div>
                 </div>
@@ -880,6 +935,114 @@
           </div>
         </section>
         <section
+          id="advance-feature"
+          class="relative px-4 sm:px-6 md:px-8 mb-14 sm:mb-20 xl:mb-8"
+        >
+          <div class="mt-16">
+            <h2 class="text-3xl tracking-tight font-extrabold text-gray-900">
+              Advance Feature
+            </h2>
+            <div class="mt-2">
+              <p>
+                This feature will help you if you need different
+                <code>`model`</code> values.
+              </p>
+            </div>
+          </div>
+          <div class="space-y-6 sm:space-y-10">
+            <div id="use-array" class="pt-6 sm:pt-8">
+              <h3 class="group flex items-center font-semibold">
+                <a
+                  href="#use-array"
+                  class="absolute after:hash opacity-0 group-hover:opacity-100 -ml-4 text-light-blue-400"
+                  aria-label="Anchor"
+                ></a>
+                <span class="text-lg text-gray-900">
+                  Use Array
+                </span>
+              </h3>
+              <div
+                class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
+              >
+                <div>
+                  <litepie-datepicker
+                    :formatter="playFormatter"
+                    v-model="dateValue.useArray"
+                  />
+                </div>
+                <div>
+                  <div class="rounded-xl overflow-hidden">
+                    <div class="bg-light-blue-500">
+                      <v-prims language="html" :code="advance.useArray">
+                      </v-prims>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="use-object" class="pt-6 sm:pt-8">
+              <h3 class="group flex items-center font-semibold">
+                <a
+                  href="#use-object"
+                  class="absolute after:hash opacity-0 group-hover:opacity-100 -ml-4 text-light-blue-400"
+                  aria-label="Anchor"
+                ></a>
+                <span class="text-lg text-gray-900">
+                  Use Object
+                </span>
+              </h3>
+              <div
+                class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
+              >
+                <div>
+                  <litepie-datepicker
+                    :formatter="playFormatter"
+                    v-model="dateValue.useObject"
+                  />
+                </div>
+                <div>
+                  <div class="rounded-xl overflow-hidden">
+                    <div class="bg-light-blue-500">
+                      <v-prims language="html" :code="advance.useObject">
+                      </v-prims>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="use-string" class="pt-6 sm:pt-8">
+              <h3 class="group flex items-center font-semibold">
+                <a
+                  href="#use-string"
+                  class="absolute after:hash opacity-0 group-hover:opacity-100 -ml-4 text-light-blue-400"
+                  aria-label="Anchor"
+                ></a>
+                <span class="text-lg text-gray-900">
+                  Use String
+                </span>
+              </h3>
+              <div
+                class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
+              >
+                <div>
+                  <litepie-datepicker
+                    :formatter="playFormatter"
+                    v-model="dateValue.useString"
+                  />
+                </div>
+                <div>
+                  <div class="rounded-xl overflow-hidden">
+                    <div class="bg-light-blue-500">
+                      <v-prims language="html" :code="advance.useString">
+                      </v-prims>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
           class="hidden relative px-4 sm:px-6 md:px-8 mb-14 sm:mb-20 xl:mb-8"
         >
           <h2
@@ -1014,22 +1177,24 @@
 </template>
 
 <script>
-import dayjs from 'dayjs';
-import { reactive, ref, watchEffect } from 'vue';
-import content from './content';
+import dayjs from "dayjs";
+import { reactive, ref, watchEffect } from "vue";
+import content from "./content";
+import VPrims from "./prims";
 
 export default {
-  name: 'App',
+  name: "App",
+  components: { VPrims },
   setup() {
     const myRef = ref(null);
     const formatter = ref({
-      date: 'YYYY-MMM-DD HH:mm:ss',
-      month: 'MMM'
+      date: "YYYY-MMM-DD HH:mm:ss",
+      month: "MMM"
     });
     const heroModel = ref([
       dayjs().format(formatter.value.date),
       dayjs()
-        .add(1, 'M')
+        .add(1, "M")
         .format(formatter.value.date)
     ]);
     const dateValue = reactive({
@@ -1048,11 +1213,17 @@ export default {
       disableDate: [],
       disableInRange: [],
       trigger: [],
-      slots: []
+      slots: [],
+      useArray: [],
+      useObject: {
+        startDate: "",
+        endDate: ""
+      },
+      useString: ""
     });
     const playFormatter = ref({
-      date: 'YYYY-MM-DD',
-      month: 'MMM'
+      date: "YYYY-MM-DD",
+      month: "MMM"
     });
 
     watchEffect(() => {
@@ -1081,7 +1252,8 @@ export default {
       dateValue,
       playFormatter,
       defaultContent: content(),
-      playground: content().playground
+      playground: content().playground,
+      advance: content().advance
     };
   }
 };

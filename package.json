@@ -41,7 +41,9 @@
     "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife",
-    "build:doc": "vue-cli-service build && npx tailwind build ./docs/src/styles.css -o ./docs/dist/css/prims.css && cp -r ./docs/public/img ./docs/dist/img && cp ./docs/public/favicon.ico ./docs/dist"
+    "build:doc": "vue-cli-service build && npm run tw",
+    "tw": "npx tailwind build ./docs/src/styles.css -o ./docs/dist/css/prims.css && cp -r ./docs/public/img ./docs/dist/img && cp ./docs/public/favicon.ico ./docs/dist",
+    "lint": "eslint --fix"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
@@ -59,7 +61,9 @@
     "autoprefixer": "^9.8.6",
     "cross-env": "^7.0.3",
     "dayjs": "^1.10.4",
-    "litepie-datepicker": "^1.0.2",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "litepie-datepicker": "^1.0.3",
     "minimist": "^1.2.5",
     "postcss": "^7.0.35",
     "prismjs": "^1.23.0",

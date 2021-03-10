@@ -465,6 +465,81 @@ export default {
 };
 </script>`;
 
+  const useArray = `<template>
+  <div class="flex">
+    <litepie-datepicker
+      v-model="dateValue"
+    ></litepie-datepicker>
+  </div>
+</template>
+
+<script>
+import { ref } from 'vue';
+
+export default {
+  name: 'MyComponent',
+  setup() {
+    // use Array as model
+    const dateValue = ref([]);
+
+    return {
+      dateValue
+    };
+  }
+};
+</script>`;
+
+  const useObject = `<template>
+  <div class="flex">
+    <litepie-datepicker
+      v-model="dateValue"
+    ></litepie-datepicker>
+  </div>
+</template>
+
+<script>
+import { ref } from 'vue';
+
+export default {
+  name: 'MyComponent',
+  setup() {
+    // use Object as model
+    const dateValue = ref({
+       startDate: '',
+       endDate: ''
+    });
+
+    return {
+      dateValue
+    };
+  }
+};
+</script>`;
+
+  const useString = `<template>
+  <div class="flex">
+    <litepie-datepicker
+      v-model="dateValue"
+    ></litepie-datepicker>
+  </div>
+</template>
+
+<script>
+import { ref } from 'vue';
+
+export default {
+  name: 'MyComponent',
+  setup() {
+    // use String as model
+    const dateValue = ref('');
+
+    return {
+      dateValue
+    };
+  }
+};
+</script>`;
+
   return {
     twConfig,
     itWorks,
@@ -483,6 +558,11 @@ export default {
       disableInRange,
       trigger,
       useSlot
+    },
+    advance: {
+      useArray,
+      useObject,
+      useString,
     }
   };
 };
