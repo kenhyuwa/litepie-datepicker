@@ -632,8 +632,8 @@ export default /*#__PURE__*/ defineComponent({
       }
 
       return date.isBetween(
-        dayjs(s, props.separator, true),
-        dayjs(e, props.separator, true),
+        dayjs(s, props.formatter.date, true),
+        dayjs(e, props.formatter.date, true),
         'date',
         '[]'
       );
