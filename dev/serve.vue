@@ -80,10 +80,20 @@ export default defineComponent({
     const shortcuts = () => {
       return [
         {
-          label: 'Last 15 Days',
+          label: 'Tomorrow',
           atClick: () => {
             const date = new Date();
-            return [new Date(date.setDate(date.getDate() - 15)), new Date()];
+            return [new Date(date.setDate(date.getDate() + 1)), date];
+          }
+        },
+        {
+          label: 'Last Years',
+          atClick: () => {
+            const date = new Date();
+            return [
+              new Date(date.setFullYear(date.getFullYear() - 1)),
+              new Date()
+            ];
           }
         }
       ];

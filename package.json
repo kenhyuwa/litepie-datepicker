@@ -1,6 +1,6 @@
 {
   "name": "litepie-datepicker",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A date range picker component for Vue.js and Tailwind CSS, dependent to day.js",
   "main": "dist/litepie-datepicker.ssr.js",
   "browser": "dist/litepie-datepicker.esm.js",
@@ -63,7 +63,7 @@
     "dayjs": "^1.10.4",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
-    "litepie-datepicker": "^1.0.3",
+    "litepie-datepicker": "^1.0.4",
     "minimist": "^1.2.5",
     "postcss": "^7.0.35",
     "prismjs": "^1.23.0",

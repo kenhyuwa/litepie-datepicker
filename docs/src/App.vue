@@ -72,6 +72,14 @@
             <div
               class="flex items-center space-x-6 sm:space-x-10 ml-6 sm:ml-10"
             >
+              <div class="rounded-md overflow-hidden">
+                <a href="https://www.buymeacoffee.com/kenhyuwa" target="_blank"
+                  ><img
+                    src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
+                    alt="Buy Me A Coffee"
+                    class="w-32 h-auto"
+                /></a>
+              </div>
               <a
                 href="https://github.com/kenhyuwa/litepie-datepicker"
                 class="text-gray-300 hover:text-gray-400 transition-colors duration-200"
@@ -305,7 +313,7 @@
             </div>
           </div>
           <div
-            class="grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
+            class="grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-10"
           >
             <div id="light-mode" class="pt-6 sm:pt-8">
               <h3 class="group flex items-center font-semibold">
@@ -325,7 +333,7 @@
                     <code>`litepie-primary`</code>.
                   </p>
                 </div>
-                <div class="w-full">
+                <div class="w-full max-w-md">
                   <litepie-datepicker
                     v-model="dateValue.light"
                     :formatter="formatter"
@@ -333,7 +341,7 @@
                 </div>
               </div>
             </div>
-            <div id="dark-mode" class="pt-6 sm:pt-8">
+            <div id="dark-mode" class="dark dark:bg-gray-800 pt-6 sm:pt-8">
               <h3 class="group flex items-center font-semibold">
                 <a
                   href="#dark-mode"
@@ -353,7 +361,7 @@
                     configuration.
                   </p>
                 </div>
-                <div class="dark w-full">
+                <div class="w-full max-w-md">
                   <litepie-datepicker
                     v-model="dateValue.dark"
                     :formatter="formatter"
@@ -394,15 +402,15 @@
                 This config if you don't need change any <code>`props`</code>.
               </p>
               <div
-                class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
+                class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
-                <div>
+                <div class="w-full max-w-md">
                   <litepie-datepicker
                     :formatter="playFormatter"
                     v-model="dateValue.defaults"
                   />
                 </div>
-                <div>
+                <div class="col-span-2">
                   <div class="rounded-xl overflow-hidden">
                     <div class="bg-light-blue-500">
                       <v-prims language="html" :code="playground.defaults">
@@ -429,16 +437,16 @@
                 <i class="text-light-blue-400">false</i>.
               </p>
               <div
-                class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
+                class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
-                <div>
+                <div class="w-full max-w-md">
                   <litepie-datepicker
                     :overlay="true"
                     :formatter="playFormatter"
                     v-model="dateValue.overlay"
                   />
                 </div>
-                <div>
+                <div class="col-span-2">
                   <div class="rounded-xl overflow-hidden">
                     <div class="bg-light-blue-500">
                       <v-prims language="html" :code="playground.overlay">
@@ -464,16 +472,16 @@
                 <i class="text-light-blue-400">single date</i>.
               </p>
               <div
-                class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
+                class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
-                <div>
+                <div class="w-full max-w-md">
                   <litepie-datepicker
                     as-single
                     :formatter="playFormatter"
                     v-model="dateValue.asSingle"
                   />
                 </div>
-                <div>
+                <div class="col-span-2">
                   <div class="rounded-xl overflow-hidden">
                     <div class="bg-light-blue-500">
                       <v-prims language="html" :code="playground.asSingle">
@@ -500,9 +508,9 @@
                 with range.
               </p>
               <div
-                class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
+                class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
-                <div>
+                <div class="w-full max-w-md">
                   <litepie-datepicker
                     as-single
                     use-range
@@ -510,7 +518,7 @@
                     v-model="dateValue.asSingleUseRange"
                   />
                 </div>
-                <div>
+                <div class="col-span-2">
                   <div class="rounded-xl overflow-hidden">
                     <div class="bg-light-blue-500">
                       <v-prims
@@ -539,16 +547,16 @@
                 default placeholder use <code>`formatter.date`</code> object.
               </p>
               <div
-                class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
+                class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
-                <div>
+                <div class="w-full max-w-md">
                   <litepie-datepicker
                     placeholder="My Placeholder"
                     :formatter="playFormatter"
                     v-model="dateValue.placeholder"
                   />
                 </div>
-                <div>
+                <div class="col-span-2">
                   <div class="rounded-xl overflow-hidden">
                     <div class="bg-light-blue-500">
                       <v-prims
@@ -577,16 +585,16 @@
                 separator use <code>` ~ `</code>.
               </p>
               <div
-                class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
+                class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
-                <div>
+                <div class="w-full max-w-md">
                   <litepie-datepicker
                     separator=" to "
                     :formatter="playFormatter"
                     v-model="dateValue.separator"
                   />
                 </div>
-                <div>
+                <div class="col-span-2">
                   <div class="rounded-xl overflow-hidden">
                     <div class="bg-light-blue-500">
                       <v-prims language="html" :code="playground.separator">
@@ -626,9 +634,9 @@
                 </div>
               </div>
               <div
-                class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
+                class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
-                <div>
+                <div class="w-full max-w-md">
                   <litepie-datepicker
                     :formatter="{
                       date: 'DD MMM YYYY',
@@ -637,7 +645,7 @@
                     v-model="dateValue.formatter"
                   />
                 </div>
-                <div>
+                <div class="col-span-2">
                   <div class="rounded-xl overflow-hidden">
                     <div class="bg-light-blue-500">
                       <v-prims language="html" :code="playground.formatter">
@@ -664,16 +672,16 @@
                 <i class="text-light-blue-400">true</i>.
               </p>
               <div
-                class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
+                class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
-                <div>
+                <div class="w-full max-w-md">
                   <litepie-datepicker
                     :auto-apply="false"
                     :formatter="playFormatter"
                     v-model="dateValue.autoApply"
                   />
                 </div>
-                <div>
+                <div class="col-span-2">
                   <div class="rounded-xl overflow-hidden">
                     <div class="bg-light-blue-500">
                       <v-prims language="html" :code="playground.autoApply">
@@ -700,16 +708,16 @@
                 <i class="text-light-blue-400">new Date()</i>.
               </p>
               <div
-                class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
+                class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
-                <div>
+                <div class="w-full max-w-md">
                   <litepie-datepicker
                     :start-from="new Date(2020, 0, 1)"
                     :formatter="playFormatter"
                     v-model="dateValue.startFrom"
                   />
                 </div>
-                <div>
+                <div class="col-span-2">
                   <div class="rounded-xl overflow-hidden">
                     <div class="bg-light-blue-500">
                       <v-prims language="html" :code="playground.startFrom">
@@ -731,16 +739,16 @@
                 </span>
               </h3>
               <div
-                class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
+                class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
-                <div>
+                <div class="w-full max-w-md">
                   <litepie-datepicker
                     :shortcuts="false"
                     :formatter="playFormatter"
                     v-model="dateValue.shortcuts"
                   />
                 </div>
-                <div>
+                <div class="col-span-2">
                   <div class="rounded-xl overflow-hidden">
                     <div class="bg-light-blue-500">
                       <v-prims language="html" :code="playground.shortcuts">
@@ -762,9 +770,9 @@
                 </span>
               </h3>
               <div
-                class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
+                class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
-                <div>
+                <div class="w-full max-w-md">
                   <litepie-datepicker
                     :disable-date="
                       $event =>
@@ -774,7 +782,7 @@
                     v-model="dateValue.disableDate"
                   />
                 </div>
-                <div>
+                <div class="col-span-2">
                   <div class="rounded-xl overflow-hidden">
                     <div class="bg-light-blue-500">
                       <v-prims
@@ -798,9 +806,9 @@
                 </span>
               </h3>
               <div
-                class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
+                class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
-                <div>
+                <div class="w-full max-w-md">
                   <litepie-datepicker
                     :disable-date="
                       $event =>
@@ -811,7 +819,7 @@
                     v-model="dateValue.disableInRange"
                   />
                 </div>
-                <div>
+                <div class="col-span-2">
                   <div class="rounded-xl overflow-hidden">
                     <div class="bg-light-blue-500">
                       <v-prims
@@ -836,7 +844,7 @@
                 </span>
               </h3>
               <div
-                class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
+                class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
                 <div class="flex">
                   <div class="flex-1">
@@ -856,7 +864,7 @@
                     </button>
                   </div>
                 </div>
-                <div>
+                <div class="col-span-2">
                   <div class="rounded-xl overflow-hidden">
                     <div class="bg-light-blue-500">
                       <v-prims language="html" :code="playground.trigger">
@@ -878,9 +886,9 @@
                 </span>
               </h3>
               <div
-                class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
+                class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
-                <div>
+                <div class="w-full max-w-md">
                   <litepie-datepicker
                     :formatter="playFormatter"
                     v-model="dateValue.slots"
@@ -922,7 +930,7 @@
                     </div>
                   </litepie-datepicker>
                 </div>
-                <div>
+                <div class="col-span-2">
                   <div class="rounded-xl overflow-hidden">
                     <div class="bg-light-blue-500">
                       <v-prims language="html" :code="playground.useSlot">
@@ -962,15 +970,15 @@
                 </span>
               </h3>
               <div
-                class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
+                class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
-                <div>
+                <div class="w-full max-w-md">
                   <litepie-datepicker
                     :formatter="playFormatter"
                     v-model="dateValue.useArray"
                   />
                 </div>
-                <div>
+                <div class="col-span-2">
                   <div class="rounded-xl overflow-hidden">
                     <div class="bg-light-blue-500">
                       <v-prims language="html" :code="advance.useArray">
@@ -992,15 +1000,15 @@
                 </span>
               </h3>
               <div
-                class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
+                class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
-                <div>
+                <div class="w-full max-w-md">
                   <litepie-datepicker
                     :formatter="playFormatter"
                     v-model="dateValue.useObject"
                   />
                 </div>
-                <div>
+                <div class="col-span-2">
                   <div class="rounded-xl overflow-hidden">
                     <div class="bg-light-blue-500">
                       <v-prims language="html" :code="advance.useObject">
@@ -1022,18 +1030,49 @@
                 </span>
               </h3>
               <div
-                class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
+                class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
               >
-                <div>
+                <div class="w-full max-w-md">
                   <litepie-datepicker
                     :formatter="playFormatter"
                     v-model="dateValue.useString"
                   />
                 </div>
-                <div>
+                <div class="col-span-2">
                   <div class="rounded-xl overflow-hidden">
                     <div class="bg-light-blue-500">
                       <v-prims language="html" :code="advance.useString">
+                      </v-prims>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="custom-shortcuts" class="pt-6 sm:pt-8">
+              <h3 class="group flex items-center font-semibold">
+                <a
+                  href="#custom-shortcuts"
+                  class="absolute after:hash opacity-0 group-hover:opacity-100 -ml-4 text-light-blue-400"
+                  aria-label="Anchor"
+                ></a>
+                <span class="text-lg text-gray-900">
+                  Custom shortcuts
+                </span>
+              </h3>
+              <div
+                class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
+              >
+                <div class="w-full max-w-md">
+                  <litepie-datepicker
+                    :formatter="playFormatter"
+                    :shortcuts="customShortcuts"
+                    v-model="dateValue.customShortcuts"
+                  />
+                </div>
+                <div class="col-span-2">
+                  <div class="rounded-xl overflow-hidden">
+                    <div class="bg-light-blue-500">
+                      <v-prims language="html" :code="advance.customShortcuts">
                       </v-prims>
                     </div>
                   </div>
@@ -1177,26 +1216,29 @@
 </template>
 
 <script>
-import dayjs from "dayjs";
-import { reactive, ref, watchEffect } from "vue";
-import content from "./content";
-import VPrims from "./prims";
+import dayjs from 'dayjs';
+import { reactive, ref, watchEffect } from 'vue';
+import content from './content';
+import VPrims from './prims';
 
 export default {
-  name: "App",
+  name: 'App',
   components: { VPrims },
   setup() {
     const myRef = ref(null);
+
     const formatter = ref({
-      date: "YYYY-MMM-DD HH:mm:ss",
-      month: "MMM"
+      date: 'YYYY-MMM-DD HH:mm:ss',
+      month: 'MMM'
     });
+
     const heroModel = ref([
       dayjs().format(formatter.value.date),
       dayjs()
-        .add(1, "M")
+        .add(1, 'M')
         .format(formatter.value.date)
     ]);
+
     const dateValue = reactive({
       light: [],
       dark: [],
@@ -1216,15 +1258,39 @@ export default {
       slots: [],
       useArray: [],
       useObject: {
-        startDate: "",
-        endDate: ""
+        startDate: '',
+        endDate: ''
       },
-      useString: ""
+      useString: '',
+      customShortcuts: []
     });
+
     const playFormatter = ref({
-      date: "YYYY-MM-DD",
-      month: "MMM"
+      date: 'YYYY-MM-DD',
+      month: 'MMM'
     });
+
+    const customShortcuts = () => {
+      return [
+        {
+          label: 'Tomorrow',
+          atClick: () => {
+            const date = new Date();
+            return [new Date(date.setDate(date.getDate() + 1)), date];
+          }
+        },
+        {
+          label: 'Last Years',
+          atClick: () => {
+            const date = new Date();
+            return [
+              new Date(date.setFullYear(date.getFullYear() - 1)),
+              new Date()
+            ];
+          }
+        }
+      ];
+    };
 
     watchEffect(() => {
       setInterval(() => {
@@ -1251,6 +1317,7 @@ export default {
       heroModel,
       dateValue,
       playFormatter,
+      customShortcuts,
       defaultContent: content(),
       playground: content().playground,
       advance: content().advance

@@ -37,7 +37,7 @@
           </transition>
           <button
             type="button"
-            class="litepie-datepicker-date relative w-10 h-10 lg:w-9 lg:h-9 flex justify-center items-center text-xs 2xl:text-sm focus:outline-none"
+            class="litepie-datepicker-date relative w-full h-10 lg:w-9 lg:h-9 flex justify-center items-center text-xs 2xl:text-sm focus:outline-none"
             :class="[
               datepickerClasses(date),
               asRange ? 'transition-all' : 'transition-colors'

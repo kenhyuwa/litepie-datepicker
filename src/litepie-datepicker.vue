@@ -1141,7 +1141,7 @@ export default /*#__PURE__*/ defineComponent({
 
     const forceEmit = (s, e) => {
       datepicker.previous = dayjs(s, props.formatter.date, true);
-      datepicker.next = dayjs(e, props.formatter.date, true).add(1, 'month');
+      datepicker.next = dayjs(e, props.formatter.date, true);
       if (
         dayjs.duration(datepicker.next.diff(datepicker.previous)).$d.months ===
           2 ||

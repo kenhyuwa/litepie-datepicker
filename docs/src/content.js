@@ -540,6 +540,55 @@ export default {
 };
 </script>`;
 
+  const customShortcuts = `<template>
+  <div class="flex">
+    <litepie-datepicker
+      :shortcuts='customShortcuts'
+      v-model="dateValue"
+    ></litepie-datepicker>
+  </div>
+</template>
+
+<script>
+import { ref } from 'vue';
+
+export default {
+  name: 'MyComponent',
+  setup() {
+    const dateValue = ref([]);
+    const customShortcuts = () => {
+      return [
+        {
+          label: 'Last 15 Days',
+          atClick: () => {
+            const date = new Date();
+            return [
+              new Date(date.setDate(date.getDate() + 1)), 
+              date
+            ];
+          }
+        },
+        {
+          label: 'Last Years',
+          atClick: () => {
+            const date = new Date();
+            return [
+              new Date(date.setFullYear(date.getFullYear() - 1)),
+              new Date()
+            ];
+          }
+        }
+      ];
+    }
+
+    return {
+      dateValue,
+      customShortcuts
+    };
+  }
+};
+</script>`;
+
   return {
     twConfig,
     itWorks,
@@ -563,6 +612,7 @@ export default {
       useArray,
       useObject,
       useString,
+      customShortcuts
     }
   };
 };
