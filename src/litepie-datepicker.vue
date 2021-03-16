@@ -18,6 +18,7 @@
           v-bind="$attrs"
           v-model="value"
           :placeholder="givenPlaceholder"
+          @keyup="keyUp"
         />
         <span
           class="absolute inset-y-0 right-0 inline-flex items-center rounded-md overflow-hidden"
@@ -671,6 +672,25 @@ export default /*#__PURE__*/ defineComponent({
       }
       applyValue.value = [];
       LitepieInputRef.value && LitepieInputRef.value.focus();
+    };
+
+    const keyUp = () => {
+      if (asRange()) {
+        const [s, e] = value.value.split(props.separator);
+        const [sd, ed] = [
+          dayjs(s, props.formatter.date, true),
+          dayjs(e, props.formatter.date, true)
+        ];
+        if (sd.isValid() && ed.isValid()) {
+          setDate(sd);
+          setDate(ed);
+        }
+      } else {
+        const d = dayjs(value.value, props.formatter.date, true);
+        if (d.isValid()) {
+          setDate(d);
+        }
+      }
     };
 
     const setDate = (date, asNext) => {
@@ -1474,6 +1494,7 @@ export default /*#__PURE__*/ defineComponent({
       asRange,
       show,
       hide,
+      keyUp,
       setDate,
       setHours,
       setMinutes,
