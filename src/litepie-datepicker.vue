@@ -220,6 +220,7 @@
 import dayjs from 'dayjs';
 import localeData from 'dayjs/plugin/localeData';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 import isToday from 'dayjs/plugin/isToday';
 import isBetween from 'dayjs/plugin/isBetween';
 import duration from 'dayjs/plugin/duration';
@@ -248,6 +249,7 @@ import {
 
 dayjs.extend(localeData);
 dayjs.extend(localizedFormat);
+dayjs.extend(customParseFormat);
 dayjs.extend(isToday);
 dayjs.extend(isBetween);
 dayjs.extend(duration);
