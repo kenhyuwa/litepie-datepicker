@@ -1,6 +1,6 @@
 {
   "name": "litepie-datepicker",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A date range picker component for Vue.js and Tailwind CSS, dependent to day.js",
   "main": "dist/litepie-datepicker.ssr.js",
   "browser": "dist/litepie-datepicker.esm.js",
