@@ -1150,17 +1150,17 @@ export default /*#__PURE__*/ defineComponent({
       if (s && e) {
         if (date.isSame(s, 'date')) {
           if (e.isBefore(s)) {
-            classes += ` rounded-r-full inset-0`;
+            classes += ` rounded-r-full inset-y-0 left-0 right-1`;
           }
           if (s.isBefore(e)) {
-            classes += ` rounded-l-full inset-0`;
+            classes += ` rounded-l-full inset-y-0 left-1 right-0`;
           }
         } else if (date.isSame(e, 'date')) {
           if (e.isBefore(s)) {
-            classes += ` rounded-l-full inset-0`;
+            classes += ` rounded-l-full inset-y-0 left-1 right-0`;
           }
           if (s.isBefore(e)) {
-            classes += ` rounded-r-full inset-0`;
+            classes += ` rounded-r-full inset-y-0 left-0 right-1`;
           }
         } else {
           classes += ` inset-0`;

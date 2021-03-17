@@ -36,6 +36,10 @@ All notable changes to this project will be documented in this file.
 - Redesign layout, for breakpoint `768 ~ 1024`.
 - Hide Next/Prev button if months active.
 
+## [1.0.7]
+
+- Fix some style
+
 [Released]: https://github.com/kenhyuwa/litepie-datepicker/
 [1.0.0]: https://github.com/kenhyuwa/litepie-datepicker/releases/tag/v1.0.0
 [1.0.1]: https://github.com/kenhyuwa/litepie-datepicker/releases/tag/v1.0.1
@@ -44,3 +48,4 @@ All notable changes to this project will be documented in this file.
 [1.0.4]: https://github.com/kenhyuwa/litepie-datepicker/releases/tag/v1.0.4
 [1.0.5]: https://github.com/kenhyuwa/litepie-datepicker/releases/tag/v1.0.5
 [1.0.6]: https://github.com/kenhyuwa/litepie-datepicker/releases/tag/v1.0.6
+[1.0.7]: https://github.com/kenhyuwa/litepie-datepicker/releases/tag/v1.0.7
