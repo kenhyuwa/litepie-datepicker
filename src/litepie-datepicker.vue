@@ -72,7 +72,7 @@
           <div
             class="litepie-datepicker static sm:relative w-full bg-white sm:rounded-lg sm:shadow-sm border-0 sm:border border-black border-opacity-10 px-3 py-3 sm:px-1 sm:py-1.5 dark:bg-litepie-secondary-800 dark:border-litepie-secondary-700 dark:border-opacity-100"
           >
-            <div class="flex flex-wrap sm:flex-nowrap">
+            <div class="flex flex-wrap lg:flex-nowrap">
               <!--          Shortcut-->
               <litepie-shortcut
                 v-if="shortcuts"
@@ -91,7 +91,7 @@
                   ></div>
                 </div>
                 <div
-                  class="relative w-full sm:w-60 xl:w-72 2xl:w-80"
+                  class="relative w-full sm:w-80"
                   :class="{
                     'mb-3 sm:mb-0 sm:mr-2': asRange() && !asSingle
                   }"
@@ -132,7 +132,7 @@
                 <!--          If use range-->
                 <div
                   v-if="asRange() && !asSingle"
-                  class="relative w-full sm:w-60 xl:w-72 2xl:w-80 overflow-hidden mt-3 sm:mt-0 sm:ml-2"
+                  class="relative w-full sm:w-80 overflow-hidden mt-3 sm:mt-0 sm:ml-2"
                 >
                   <!--            Header-->
                   <litepie-header
@@ -184,15 +184,13 @@
                       asSingle ? applyValue.length < 1 : applyValue.length < 2
                     "
                     @click="applyDate"
-                  >
-                    Apply
-                  </button>
+                    v-text="footer.apply"
+                  ></button>
                   <button
                     type="button"
                     class="mt-3 away-cancel-picker w-full transition ease-out duration-300 inline-flex justify-center rounded-md border border-litepie-secondary-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-litepie-secondary-700 hover:bg-litepie-secondary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-litepie-primary-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm dark:ring-offset-litepie-secondary-800"
-                  >
-                    Cancel
-                  </button>
+                    v-text="footer.cancel"
+                  ></button>
                 </div>
               </div>
             </div>
@@ -204,9 +202,8 @@
                   <button
                     type="button"
                     class="away-cancel-picker w-full transition ease-out duration-300 inline-flex justify-center rounded-md border border-litepie-secondary-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-litepie-secondary-700 hover:bg-litepie-secondary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-litepie-primary-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm dark:ring-offset-litepie-secondary-800"
-                  >
-                    Cancel
-                  </button>
+                    v-text="footer.cancel"
+                  ></button>
                 </div>
               </div>
             </div>
@@ -333,6 +330,13 @@ export default /*#__PURE__*/ defineComponent({
     startFrom: {
       type: [Object, String],
       default: () => new Date()
+    },
+    footer: {
+      type: Object,
+      default: () => ({
+        apply: 'Apply',
+        cancel: 'Cancel'
+      })
     }
   },
   inheritAttrs: false,
@@ -674,6 +678,10 @@ export default /*#__PURE__*/ defineComponent({
       LitepieInputRef.value && LitepieInputRef.value.focus();
     };
 
+    /**
+     * keyUp event
+     * @since v1.0.5
+     */
     const keyUp = () => {
       if (asRange()) {
         const [s, e] = value.value.split(props.separator);
@@ -1142,20 +1150,20 @@ export default /*#__PURE__*/ defineComponent({
       if (s && e) {
         if (date.isSame(s, 'date')) {
           if (e.isBefore(s)) {
-            classes += ` rounded-r-full inset-y-0 left-0 right-0.5`;
+            classes += ` rounded-r-full inset-0`;
           }
           if (s.isBefore(e)) {
-            classes += ` rounded-l-full inset-y-0 left-0.5 right-0`;
+            classes += ` rounded-l-full inset-0`;
           }
         } else if (date.isSame(e, 'date')) {
           if (e.isBefore(s)) {
-            classes += ` rounded-l-full inset-y-0 left-0.5 right-0`;
+            classes += ` rounded-l-full inset-0`;
           }
           if (s.isBefore(e)) {
-            classes += ` rounded-r-full inset-y-0 left-0 right-0.5`;
+            classes += ` rounded-r-full inset-0`;
           }
         } else {
-          classes += ` inset-y-0 left-0 right-0`;
+          classes += ` inset-0`;
         }
       }
       return classes;

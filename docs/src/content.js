@@ -465,6 +465,38 @@ export default {
 };
 </script>`;
 
+  const footer = `<template>
+  <div class="flex">
+    <litepie-datepicker
+      :footer="footerProps"
+      v-model="dateValue"
+    ></litepie-datepicker>
+  </div>
+</template>
+
+<script>
+import { ref } from 'vue';
+
+export default {
+  name: 'MyComponent',
+  setup() {
+    const dateValue = ref([]);
+    const footerProps = {
+      apply: 'OK',
+      cancel: 'Close'
+    };
+
+    return {
+      dateValue,
+      footerProps
+    };
+  }
+};
+</script>`;
+
+  /**
+   * Advance
+   */
   const useArray = `<template>
   <div class="flex">
     <litepie-datepicker
@@ -543,7 +575,7 @@ export default {
   const customShortcuts = `<template>
   <div class="flex">
     <litepie-datepicker
-      :shortcuts='customShortcuts'
+      :shortcuts="customShortcuts"
       v-model="dateValue"
     ></litepie-datepicker>
   </div>
@@ -606,7 +638,8 @@ export default {
       disableDate,
       disableInRange,
       trigger,
-      useSlot
+      useSlot,
+      footer
     },
     advance: {
       useArray,

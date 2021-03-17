@@ -41,7 +41,13 @@ export const useDisableDate = (date, { disableDate }) => {
 };
 
 export const useBetweenRange = (date, { previous, next }) => {
-  return !!(date.isBetween(previous, next, 'date', '[]') && !date.off);
+  let pattern;
+  if (previous.isAfter(next, 'date')) {
+    pattern = '(]';
+  } else {
+    pattern = '[)';
+  }
+  return !!(date.isBetween(previous, next, 'date', pattern) && !date.off);
 };
 
 export const useToValueFromString = (date, { formatter }) => {

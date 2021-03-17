@@ -17,11 +17,14 @@ module.exports = {
         lime: colors.lime,
         orange: colors.orange,
         'light-blue': colors.lightBlue,
-        'litepie-primary': colors.lightBlue,
+        'litepie-primary': colors.emerald,
         'litepie-secondary': colors.coolGray
       },
       fontFamily: {
         sans: ['Inter', ...fontFamily.sans]
+      },
+      opacity: {
+        85: '0.85'
       }
     }
   },

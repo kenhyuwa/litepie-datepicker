@@ -99,11 +99,11 @@ export default defineComponent({
       ];
     };
     onMounted(() => {
-      // dateValue.value = {
-      //   startDate: new Date(2021, 9, 1),
-      //   endDate: '2021-09-01'
-      // };
-      dateValue.value = [new Date(2019, 9, 8), new Date(2019, 9, 19)];
+      dateValue.value = {
+        startDate: '20 Mar 2021',
+        endDate: '20 Aug 2021'
+      };
+      // dateValue.value = [new Date(2019, 9, 8), new Date(2019, 9, 19)];
       // dateValue.value = `${new Date(2019, 9, 8).toString()} ~ ${new Date(
       //   2019,
       //   9,

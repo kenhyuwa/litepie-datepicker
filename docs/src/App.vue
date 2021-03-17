@@ -1,6 +1,6 @@
 <template>
   <div class="relative min-h-screen overflow-hidden bg-light-blue-500">
-    <div class="absolute inset-0 bg-black bg-opacity-80"></div>
+    <div class="absolute inset-0 bg-black bg-opacity-85"></div>
     <div
       class="absolute right-1.5 top-1/3 mt-40 sm:mt-0 sm:top-0 bottom-0 w-full xl:w-1/2 bg-light-blue-500 shadow-2xl rounded-tl-3xl transform translate-x-10 sm:translate-x-24 translate-y-32 sm:translate-y-1/2 lg:translate-y-1/2 xl:translate-y-36 -rotate-6"
     ></div>
@@ -106,10 +106,14 @@
             <h1
               class="text-4xl sm:text-6xl lg:text-7xl leading-none font-extrabold tracking-tight text-white mt-10 mb-8 sm:mt-14 sm:mb-10"
             >
-              Litepie Datepicker
+              <span
+                class="bg-gradient-to-r bg-clip-text text-transparent from-gray-200 to-light-blue-400"
+              >
+                Litepie Datepicker
+              </span>
             </h1>
             <p
-              class="max-w-screen-lg text-lg sm:text-2xl sm:leading-10 text-gray-300 font-medium tracking-tight mb-10 sm:mb-11"
+              class="max-w-screen-lg text-lg sm:text-2xl sm:leading-10 text-gray-400 font-medium tracking-tight mb-10 sm:mb-11"
             >
               A date range picker component for Vue.js and Tailwind CSS,
               dependent to day.js.
@@ -940,6 +944,41 @@
                 </div>
               </div>
             </div>
+            <div id="footer" class="pt-6 sm:pt-8">
+              <h3 class="group flex items-center font-semibold">
+                <a
+                  href="#footer"
+                  class="absolute after:hash opacity-0 group-hover:opacity-100 -ml-4 text-light-blue-400"
+                  aria-label="Anchor"
+                ></a>
+                <span class="text-lg text-gray-900">
+                  Footer
+                </span>
+              </h3>
+              <div
+                class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
+              >
+                <div class="w-full max-w-md">
+                  <litepie-datepicker
+                    :footer="{
+                      apply: 'OK',
+                      cancel: 'Close'
+                    }"
+                    :auto-apply="false"
+                    :formatter="playFormatter"
+                    v-model="dateValue.footer"
+                  />
+                </div>
+                <div class="col-span-2">
+                  <div class="rounded-xl overflow-hidden">
+                    <div class="bg-light-blue-500">
+                      <v-prims language="html" :code="playground.footer">
+                      </v-prims>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
         <section
@@ -1256,6 +1295,7 @@ export default {
       disableInRange: [],
       trigger: [],
       slots: [],
+      footer: [],
       useArray: [],
       useObject: {
         startDate: '',

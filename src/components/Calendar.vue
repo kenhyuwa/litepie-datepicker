@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-wrap -m-px py-1">
+  <div class="grid grid-cols-7 gap-y-0.5 my-1">
     <transition-group
       enter-from-class="opacity-0"
       enter-to-class="opacity-100"
@@ -8,16 +8,9 @@
       leave-from-class="opacity-100"
       leave-to-class="opacity-0"
     >
-      <div
-        v-for="(date, keyDate) in calendar.date()"
-        :key="keyDate"
-        :style="{
-          width: `calc(100% / ${weeks.length})`
-        }"
-        class="my-px"
-      >
+      <div v-for="(date, keyDate) in calendar.date()" :key="keyDate">
         <div
-          class="relative flex-1 flex justify-center"
+          class="relative"
           :class="{ 'litepie-tooltip': asRange && date.duration() }"
           :data-tooltip="`${date.duration()}`"
         >
@@ -37,7 +30,7 @@
           </transition>
           <button
             type="button"
-            class="litepie-datepicker-date relative w-full h-10 lg:w-9 lg:h-9 flex justify-center items-center text-xs 2xl:text-sm focus:outline-none"
+            class="litepie-datepicker-date relative w-12 h-12 lg:w-10 lg:h-10 flex justify-center items-center text-xs 2xl:text-sm focus:outline-none"
             :class="[
               datepickerClasses(date),
               asRange ? 'transition-all' : 'transition-colors'
