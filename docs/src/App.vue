@@ -58,7 +58,7 @@
       <header class="relative z-10 max-w-screen-lg xl:max-w-screen-xl mx-auto">
         <div class="relative px-4 sm:px-6 md:px-8 mb-14 sm:mb-20 xl:mb-8">
           <div
-            class="border-b border-gray-700 border-opacity-90 py-4 flex items-center justify-between mb-12 sm:mb-20 -mx-4 px-4 sm:mx-0 sm:px-0 lg:mb-24 xl:mb-28"
+            class="border-b border-gray-700 border-opacity-70 py-4 flex items-center justify-between mb-20 -mx-4 px-4 sm:mx-0 sm:px-0 lg:mb-24 xl:mb-32 2xl:mb-40"
           >
             <div class="flex">
               <a href="/" class="block">
@@ -137,7 +137,7 @@
                 >
                   <button
                     type="button"
-                    class="w-full sm:w-auto flex-none bg-gray-50 text-gray-400 hover:text-gray-900 font-mono leading-6 py-3 sm:px-6 border border-gray-200 rounded-xl flex items-center justify-center space-x-2 sm:space-x-4 focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-gray-300 focus:outline-none transition ease-out duration-300"
+                    class="w-full sm:w-auto flex-none text-xs sm:text-base font-semibold bg-gray-50 text-gray-400 hover:text-gray-900 font-mono leading-6 py-3 sm:px-6 border border-gray-200 rounded-xl flex items-center justify-center space-x-2 sm:space-x-4 focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-gray-300 focus:outline-none transition ease-out duration-300"
                   >
                     <span class="text-gray-900">
                       {{ value || placeholder }}
@@ -1271,6 +1271,11 @@ export default {
       month: 'MMM'
     });
 
+    const playFormatter = ref({
+      date: 'YYYY-MM-DD',
+      month: 'MMM'
+    });
+
     const heroModel = ref([
       dayjs().format(formatter.value.date),
       dayjs()
@@ -1292,7 +1297,14 @@ export default {
       startFrom: [],
       shortcuts: [],
       disableDate: [],
-      disableInRange: [],
+      disableInRange: [
+        dayjs()
+          .subtract(7, 'd')
+          .format(playFormatter.value.date),
+        dayjs()
+          .subtract(1, 'd')
+          .format(playFormatter.value.date)
+      ],
       trigger: [],
       slots: [],
       footer: [],
@@ -1303,11 +1315,6 @@ export default {
       },
       useString: '',
       customShortcuts: []
-    });
-
-    const playFormatter = ref({
-      date: 'YYYY-MM-DD',
-      month: 'MMM'
     });
 
     const customShortcuts = () => {
@@ -1349,6 +1356,17 @@ export default {
             .format(formatter.value.date)}`;
         }
       }, 1000);
+
+      setInterval(() => {
+        if (myRef.value) {
+          myRef.value.LitepieDatepickerRef.parentElement.classList.add('dark');
+          setTimeout(() => {
+            myRef.value.LitepieDatepickerRef.parentElement.classList.remove(
+              'dark'
+            );
+          }, 10000);
+        }
+      }, 20000);
     });
 
     return {
