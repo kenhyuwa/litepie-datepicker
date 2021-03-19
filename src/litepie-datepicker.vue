@@ -1578,6 +1578,7 @@ export default /*#__PURE__*/ defineComponent({
       });
     });
 
+    provide('jsonLocale', jsonLocale);
     provide('isBetweenRange', isBetweenRange);
     provide('betweenRangeClasses', betweenRangeClasses);
     provide('datepickerClasses', datepickerClasses);

@@ -80,19 +80,18 @@
 </template>
 
 <script>
-import { ref, inject, watchEffect } from 'vue';
+import { inject } from 'vue';
 
 export default {
   name: 'LitepieShortcut',
   props: {
     shortcuts: [Boolean, Function],
     asRange: Boolean,
-    asSingle: Boolean,
-    i18n: String
+    asSingle: Boolean
   },
   inheritAttrs: false,
   setup(props) {
-    const jsonLocale = ref(null);
+    const jsonLocale = inject('jsonLocale');
     const setToToday = inject('setToToday');
     const setToYesterday = inject('setToYesterday');
     const setToLastDay = inject('setToLastDay');
@@ -106,23 +105,6 @@ export default {
         return false;
       }
     };
-    const locale = () => {
-      return import(`./../locale/${props.i18n}`)
-        .then(async module => {
-          return await module.default;
-        })
-        .catch(() => {
-          return import(`./../locale/en`).then(async module => {
-            return await module.default;
-          });
-        });
-    };
-
-    watchEffect(() => {
-      locale().then(v => {
-        jsonLocale.value = v;
-      });
-    });
 
     return {
       jsonLocale,

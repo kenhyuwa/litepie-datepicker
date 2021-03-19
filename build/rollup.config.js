@@ -10,6 +10,7 @@ import babel from '@rollup/plugin-babel';
 import PostCSS from 'rollup-plugin-postcss';
 import { terser } from 'rollup-plugin-terser';
 import minimist from 'minimist';
+import copy from 'rollup-plugin-copy';
 
 // Get browserslist config and remove ie from es build targets
 const esbrowserslist = fs
@@ -100,6 +101,7 @@ if (!argv.format || argv.format === 'es') {
     external,
     output: {
       file: 'dist/litepie-datepicker.esm.js',
+      inlineDynamicImports: true,
       format: 'esm',
       exports: 'named'
     },
@@ -119,7 +121,10 @@ if (!argv.format || argv.format === 'es') {
           ]
         ]
       }),
-      commonjs()
+      commonjs(),
+      copy({
+        targets: [{ src: 'src/locale/*', dest: 'dist/locale' }]
+      })
     ]
   };
   buildFormats.push(esConfig);
@@ -132,6 +137,7 @@ if (!argv.format || argv.format === 'cjs') {
     output: {
       compact: true,
       file: 'dist/litepie-datepicker.ssr.js',
+      inlineDynamicImports: true,
       format: 'cjs',
       name: 'LitepieDatepicker',
       exports: 'auto',
@@ -156,6 +162,7 @@ if (!argv.format || argv.format === 'iife') {
     output: {
       compact: true,
       file: 'dist/litepie-datepicker.min.js',
+      inlineDynamicImports: true,
       format: 'iife',
       name: 'LitepieDatepicker',
       exports: 'auto',
