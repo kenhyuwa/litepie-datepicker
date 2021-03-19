@@ -9,14 +9,18 @@
     ]"
     v-litepie:away="trigger"
   >
-    <slot :value="value" :placeholder="givenPlaceholder" :clear="clearPicker">
+    <slot
+      :value="pickerValue"
+      :placeholder="givenPlaceholder"
+      :clear="clearPicker"
+    >
       <label class="relative block">
         <input
           ref="LitepieInputRef"
           type="text"
           class="relative block w-full pl-3 pr-12 py-2.5 rounded-lg overflow-hidden text-sm text-litepie-secondary-700 placeholder-litepie-secondary-400 transition-colors bg-white border border-litepie-secondary-300 focus:border-litepie-primary-300 focus:ring focus:ring-litepie-primary-500 focus:ring-opacity-10 focus:outline-none dark:bg-litepie-secondary-800 dark:border-litepie-secondary-700 dark:text-litepie-secondary-100 dark:placeholder-litepie-secondary-500 dark:focus:border-litepie-primary-500 dark:focus:ring-opacity-20"
           v-bind="$attrs"
-          v-model="value"
+          v-model="pickerValue"
           :placeholder="givenPlaceholder"
           @keyup="keyUp"
         />
@@ -26,7 +30,7 @@
           <button
             type="button"
             class="px-2 py-1 mr-1 focus:outline-none text-litepie-secondary-400 dark:text-opacity-70 rounded-md"
-            @click="value ? clearPicker() : $refs.LitepieInputRef.focus()"
+            @click="pickerValue ? clearPicker() : $refs.LitepieInputRef.focus()"
           >
             <svg
               class="w-5 h-5"
@@ -36,7 +40,7 @@
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                v-if="value"
+                v-if="pickerValue"
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="1.5"
@@ -64,13 +68,16 @@
     >
       <div
         v-show="isShow"
-        class="absolute z-50 inset-x-auto top-full sm:mt-2.5"
+        ref="LitepieRef"
+        class="absolute z-50 top-full sm:mt-2.5"
+        :class="placement ? 'left-0 right-auto' : 'left-auto right-0'"
       >
         <div
           class="fixed inset-0 z-50 overflow-y-auto sm:overflow-visible sm:static sm:z-auto bg-white dark:bg-litepie-secondary-800 sm:rounded-lg shadow-sm"
         >
           <div
             class="litepie-datepicker static sm:relative w-full bg-white sm:rounded-lg sm:shadow-sm border-0 sm:border border-black border-opacity-10 px-3 py-3 sm:px-1 sm:py-1.5 dark:bg-litepie-secondary-800 dark:border-litepie-secondary-700 dark:border-opacity-100"
+            :class="placement ? 'place-left' : 'place-right'"
           >
             <div class="flex flex-wrap lg:flex-nowrap">
               <!--          Shortcut-->
@@ -79,6 +86,7 @@
                 :shortcuts="shortcuts"
                 :as-range="asRange()"
                 :as-single="asSingle"
+                :i18n="i18n"
               />
               <!--          Calendar-->
               <div class="relative flex flex-wrap sm:flex-nowrap p-1">
@@ -184,12 +192,20 @@
                       asSingle ? applyValue.length < 1 : applyValue.length < 2
                     "
                     @click="applyDate"
-                    v-text="footer.apply"
+                    v-text="
+                      footer
+                        ? footer.apply
+                        : jsonLocale && jsonLocale.button.apply
+                    "
                   ></button>
                   <button
                     type="button"
                     class="mt-3 away-cancel-picker w-full transition ease-out duration-300 inline-flex justify-center rounded-md border border-litepie-secondary-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-litepie-secondary-700 hover:bg-litepie-secondary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-litepie-primary-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm dark:ring-offset-litepie-secondary-800"
-                    v-text="footer.cancel"
+                    v-text="
+                      footer
+                        ? footer.cancel
+                        : jsonLocale && jsonLocale.button.cancel
+                    "
                   ></button>
                 </div>
               </div>
@@ -202,7 +218,11 @@
                   <button
                     type="button"
                     class="away-cancel-picker w-full transition ease-out duration-300 inline-flex justify-center rounded-md border border-litepie-secondary-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-litepie-secondary-700 hover:bg-litepie-secondary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-litepie-primary-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm dark:ring-offset-litepie-secondary-800"
-                    v-text="footer.cancel"
+                    v-text="
+                      footer
+                        ? footer.cancel
+                        : jsonLocale && jsonLocale.button.cancel
+                    "
                   ></button>
                 </div>
               </div>
@@ -232,7 +252,9 @@ import {
   onMounted,
   isProxy,
   watchEffect,
-  watch
+  watch,
+  unref,
+  onUpdated
 } from 'vue';
 import {
   useCurrentDate,
@@ -242,7 +264,8 @@ import {
   usePreviousDate,
   useToValueFromArray,
   useToValueFromString,
-  useDirective
+  useDirective,
+  useVisibleViewport
 } from '@/lib/fn';
 
 dayjs.extend(localeData);
@@ -333,21 +356,21 @@ export default /*#__PURE__*/ defineComponent({
     },
     footer: {
       type: Object,
-      default: () => ({
-        apply: 'Apply',
-        cancel: 'Cancel'
-      })
+      default: () => undefined
     }
   },
   inheritAttrs: false,
   emits: ['update:modelValue'],
   setup(props, { emit }) {
+    const LitepieRef = ref(null);
     const LitepieDatepickerRef = ref(null);
     const LitepieInputRef = ref(null);
     const isShow = ref(false);
+    const placement = ref(true);
+    const jsonLocale = ref(null);
     const givenPlaceholder = ref('');
     const selection = ref(null);
-    const value = ref('');
+    const pickerValue = ref('');
     const hoverValue = ref([]);
     const applyValue = ref([]);
     const previous = ref(null);
@@ -364,18 +387,21 @@ export default /*#__PURE__*/ defineComponent({
         year: false
       }
     });
-    const datepicker = reactive({
+    const datepicker = ref({
       previous: dayjs(),
       next: dayjs().add(1, 'month'),
       year: {
         previous: dayjs().year(),
         next: dayjs().year()
-      }
+      },
+      weeks: dayjs.weekdaysShort(),
+      months:
+        props.formatter.month === 'MMM' ? dayjs.monthsShort() : dayjs.months()
     });
-    const weeks = computed(() => dayjs.weekdaysShort());
-    const months = computed(() => dayjs.months());
+    const weeks = computed(() => datepicker.value.weeks);
+    const months = computed(() => datepicker.value.months);
     const calendar = computed(() => {
-      const { previous, next, year } = datepicker;
+      const { previous, next, year } = unref(datepicker);
       return {
         previous: {
           date: () => {
@@ -402,13 +428,13 @@ export default /*#__PURE__*/ defineComponent({
                         hoverValue.value[0],
                         hoverValue.value[1],
                         'date',
-                        '[]'
+                        '()'
                       ) ||
                         v.isBetween(
                           hoverValue.value[1],
                           hoverValue.value[0],
                           'date',
-                          '[]'
+                          '()'
                         )) &&
                       previous.month() === v.month()
                     );
@@ -432,19 +458,21 @@ export default /*#__PURE__*/ defineComponent({
             );
           },
           onPrevious: () => {
-            datepicker.previous = previous.subtract(1, 'month');
+            datepicker.value.previous = previous.subtract(1, 'month');
           },
           onNext: () => {
-            datepicker.previous = previous.add(1, 'month');
+            datepicker.value.previous = previous.add(1, 'month');
             if (previous.diff(next, 'month') === -1) {
-              datepicker.next = next.add(1, 'month');
+              datepicker.value.next = next.add(1, 'month');
             }
           },
           onPreviousYear: () => {
-            datepicker.year.previous = datepicker.year.previous - 12;
+            datepicker.value.year.previous =
+              datepicker.value.year.previous - 12;
           },
           onNextYear: () => {
-            datepicker.year.previous = datepicker.year.previous + 12;
+            datepicker.value.year.previous =
+              datepicker.value.year.previous + 12;
           },
           openMonth: () => {
             panel.previous.month = !panel.previous.month;
@@ -452,18 +480,24 @@ export default /*#__PURE__*/ defineComponent({
             panel.previous.calendar = !panel.previous.month;
           },
           setMount: $event => {
-            datepicker.previous = previous.month($event);
+            datepicker.value.previous = previous.month($event);
             panel.previous.month = !panel.previous.month;
             panel.previous.year = false;
             panel.previous.calendar = !panel.previous.month;
             nextTick(() => {
               if (
-                datepicker.next.isSame(datepicker.previous, 'month') ||
-                datepicker.next.isBefore(datepicker.previous)
+                datepicker.value.next.isSame(
+                  datepicker.value.previous,
+                  'month'
+                ) ||
+                datepicker.value.next.isBefore(datepicker.value.previous)
               ) {
-                datepicker.next = datepicker.previous.add(1, 'month');
+                datepicker.value.next = datepicker.value.previous.add(
+                  1,
+                  'month'
+                );
               }
-              datepicker.year.next = datepicker.next.year();
+              datepicker.value.year.next = datepicker.value.next.year();
             });
           },
           openYear: () => {
@@ -473,18 +507,24 @@ export default /*#__PURE__*/ defineComponent({
           },
           setYear: ($event, asNext) => {
             if (!asNext) {
-              datepicker.previous = previous.year($event);
+              datepicker.value.previous = previous.year($event);
               panel.previous.year = !panel.previous.year;
               panel.previous.calendar = !panel.previous.year;
               nextTick(() => {
                 if (
-                  datepicker.next.isSame(datepicker.previous, 'month') ||
-                  datepicker.next.isBefore(datepicker.previous)
+                  datepicker.value.next.isSame(
+                    datepicker.value.previous,
+                    'month'
+                  ) ||
+                  datepicker.value.next.isBefore(datepicker.value.previous)
                 ) {
-                  datepicker.next = datepicker.previous.add(1, 'month');
+                  datepicker.value.next = datepicker.value.previous.add(
+                    1,
+                    'month'
+                  );
                 }
-                datepicker.year.previous = datepicker.previous.year();
-                datepicker.year.next = datepicker.next.year();
+                datepicker.value.year.previous = datepicker.value.previous.year();
+                datepicker.value.year.next = datepicker.value.next.year();
               });
             }
           }
@@ -513,13 +553,13 @@ export default /*#__PURE__*/ defineComponent({
                         hoverValue.value[0],
                         hoverValue.value[1],
                         'date',
-                        '[]'
+                        '()'
                       ) ||
                         v.isBetween(
                           hoverValue.value[1],
                           hoverValue.value[0],
                           'date',
-                          '[]'
+                          '()'
                         )) &&
                       next.month() === v.month()
                     );
@@ -543,19 +583,19 @@ export default /*#__PURE__*/ defineComponent({
             );
           },
           onPrevious: () => {
-            datepicker.next = next.subtract(1, 'month');
+            datepicker.value.next = next.subtract(1, 'month');
             if (next.diff(previous, 'month') === 1) {
-              datepicker.previous = previous.subtract(1, 'month');
+              datepicker.value.previous = previous.subtract(1, 'month');
             }
           },
           onNext: () => {
-            datepicker.next = next.add(1, 'month');
+            datepicker.value.next = next.add(1, 'month');
           },
           onPreviousYear: () => {
-            datepicker.year.next = datepicker.year.next - 12;
+            datepicker.value.year.next = datepicker.value.year.next - 12;
           },
           onNextYear: () => {
-            datepicker.year.next = datepicker.year.next + 12;
+            datepicker.value.year.next = datepicker.value.year.next + 12;
           },
           openMonth: () => {
             panel.next.month = !panel.next.month;
@@ -563,18 +603,24 @@ export default /*#__PURE__*/ defineComponent({
             panel.next.calendar = !panel.next.month;
           },
           setMount: $event => {
-            datepicker.next = next.month($event);
+            datepicker.value.next = next.month($event);
             panel.next.month = !panel.next.month;
             panel.next.year = false;
             panel.next.calendar = !panel.next.month;
             nextTick(() => {
               if (
-                datepicker.previous.isSame(datepicker.next, 'month') ||
-                datepicker.previous.isAfter(datepicker.next)
+                datepicker.value.previous.isSame(
+                  datepicker.value.next,
+                  'month'
+                ) ||
+                datepicker.value.previous.isAfter(datepicker.value.next)
               ) {
-                datepicker.previous = datepicker.next.subtract(1, 'month');
+                datepicker.value.previous = datepicker.value.next.subtract(
+                  1,
+                  'month'
+                );
               }
-              datepicker.year.previous = datepicker.previous.year();
+              datepicker.value.year.previous = datepicker.value.previous.year();
             });
           },
           openYear: () => {
@@ -584,19 +630,25 @@ export default /*#__PURE__*/ defineComponent({
           },
           setYear: ($event, asNext) => {
             if (asNext) {
-              datepicker.next = next.year($event);
+              datepicker.value.next = next.year($event);
               panel.next.year = !panel.next.year;
               panel.next.month = false;
               panel.next.calendar = !panel.next.year;
               nextTick(() => {
                 if (
-                  datepicker.previous.isSame(datepicker.next, 'month') ||
-                  datepicker.previous.isAfter(datepicker.next)
+                  datepicker.value.previous.isSame(
+                    datepicker.value.next,
+                    'month'
+                  ) ||
+                  datepicker.value.previous.isAfter(datepicker.value.next)
                 ) {
-                  datepicker.previous = datepicker.next.subtract(1, 'month');
+                  datepicker.value.previous = datepicker.value.next.subtract(
+                    1,
+                    'month'
+                  );
                 }
-                datepicker.year.previous = datepicker.previous.year();
-                datepicker.year.next = datepicker.next.year();
+                datepicker.value.year.previous = datepicker.value.previous.year();
+                datepicker.value.year.next = datepicker.value.next.year();
               });
             }
           }
@@ -620,7 +672,7 @@ export default /*#__PURE__*/ defineComponent({
 
     const inRangeDate = date => {
       if (props.disableInRange) return false;
-      if (value.value === '') return false;
+      if (pickerValue.value === '') return false;
       let s, e;
       if (useArray()) {
         const [start, end] = props.modelValue;
@@ -662,7 +714,7 @@ export default /*#__PURE__*/ defineComponent({
     };
 
     const clearPicker = () => {
-      value.value = '';
+      pickerValue.value = '';
       if (useArray()) {
         emit('update:modelValue', []);
       } else if (useObject()) {
@@ -684,7 +736,7 @@ export default /*#__PURE__*/ defineComponent({
      */
     const keyUp = () => {
       if (asRange()) {
-        const [s, e] = value.value.split(props.separator);
+        const [s, e] = pickerValue.value.split(props.separator);
         const [sd, ed] = [
           dayjs(s, props.formatter.date, true),
           dayjs(e, props.formatter.date, true)
@@ -694,7 +746,7 @@ export default /*#__PURE__*/ defineComponent({
           setDate(ed);
         }
       } else {
-        const d = dayjs(value.value, props.formatter.date, true);
+        const d = dayjs(pickerValue.value, props.formatter.date, true);
         if (d.isValid()) {
           setDate(d);
         }
@@ -707,7 +759,7 @@ export default /*#__PURE__*/ defineComponent({
           next.value = date;
           if (props.autoApply) {
             if (date.isBefore(previous.value)) {
-              value.value = useToValueFromArray(
+              pickerValue.value = useToValueFromArray(
                 {
                   previous: date,
                   next: previous.value
@@ -715,7 +767,7 @@ export default /*#__PURE__*/ defineComponent({
                 props
               );
             } else {
-              value.value = useToValueFromArray(
+              pickerValue.value = useToValueFromArray(
                 {
                   previous: previous.value,
                   next: date
@@ -723,7 +775,7 @@ export default /*#__PURE__*/ defineComponent({
                 props
               );
             }
-            const [s, e] = value.value.split(props.separator);
+            const [s, e] = pickerValue.value.split(props.separator);
 
             if (useArray()) {
               emit('update:modelValue', [
@@ -760,8 +812,8 @@ export default /*#__PURE__*/ defineComponent({
                 'month'
               )
             ) {
-              datepicker.previous = dayjs(s, props.formatter.date, true);
-              datepicker.next = dayjs(e, props.formatter.date, true);
+              datepicker.value.previous = dayjs(s, props.formatter.date, true);
+              datepicker.value.next = dayjs(e, props.formatter.date, true);
             }
             force();
           } else {
@@ -773,8 +825,8 @@ export default /*#__PURE__*/ defineComponent({
             const [s, e] = applyValue.value;
 
             if (!s.isSame(e, 'month')) {
-              datepicker.previous = s;
-              datepicker.next = e;
+              datepicker.value.previous = s;
+              datepicker.value.next = e;
             }
             force();
           }
@@ -786,30 +838,30 @@ export default /*#__PURE__*/ defineComponent({
           applyValue.value.push(date);
 
           if (asNext) {
-            datepicker.next = date;
-            if (datepicker.previous.isSame(date, 'month')) {
-              datepicker.next = date.add(1, 'month');
+            datepicker.value.next = date;
+            if (datepicker.value.previous.isSame(date, 'month')) {
+              datepicker.value.next = date.add(1, 'month');
             }
           } else {
-            datepicker.previous = date;
-            if (datepicker.next.isSame(date, 'month')) {
-              datepicker.previous = datepicker.next;
-              datepicker.next = date.add(1, 'month');
+            datepicker.value.previous = date;
+            if (datepicker.value.next.isSame(date, 'month')) {
+              datepicker.value.previous = datepicker.value.next;
+              datepicker.value.next = date.add(1, 'month');
             }
           }
         }
       } else {
         if (props.autoApply) {
-          value.value = useToValueFromString(date, props);
+          pickerValue.value = useToValueFromString(date, props);
           if (useArray()) {
-            emit('update:modelValue', [value.value]);
+            emit('update:modelValue', [pickerValue.value]);
           } else if (useObject()) {
             const obj = {};
             const [start] = Object.keys(props.modelValue);
-            obj[start] = value.value;
+            obj[start] = pickerValue.value;
             emit('update:modelValue', obj);
           } else {
-            emit('update:modelValue', value.value);
+            emit('update:modelValue', pickerValue.value);
           }
           isShow.value = false;
           applyValue.value = [];
@@ -880,18 +932,18 @@ export default /*#__PURE__*/ defineComponent({
             )
           );
         }
-        value.value = date;
+        pickerValue.value = date;
       } else {
-        value.value = date.format(props.formatter.date);
+        pickerValue.value = date.format(props.formatter.date);
         if (useArray()) {
-          emit('update:modelValue', [value.value]);
+          emit('update:modelValue', [pickerValue.value]);
         } else if (useObject()) {
           const obj = {};
           const [start] = Object.keys(props.modelValue);
-          obj[start] = value.value;
+          obj[start] = pickerValue.value;
           emit('update:modelValue', obj);
         } else {
-          emit('update:modelValue', value.value);
+          emit('update:modelValue', pickerValue.value);
         }
       }
       isShow.value = false;
@@ -1150,17 +1202,17 @@ export default /*#__PURE__*/ defineComponent({
       if (s && e) {
         if (date.isSame(s, 'date')) {
           if (e.isBefore(s)) {
-            classes += ` rounded-r-full inset-y-0 left-0 right-1`;
+            classes += ` rounded-r-full inset-0`;
           }
           if (s.isBefore(e)) {
-            classes += ` rounded-l-full inset-y-0 left-1 right-0`;
+            classes += ` rounded-l-full inset-0`;
           }
         } else if (date.isSame(e, 'date')) {
           if (e.isBefore(s)) {
-            classes += ` rounded-l-full inset-y-0 left-1 right-0`;
+            classes += ` rounded-l-full inset-0`;
           }
           if (s.isBefore(e)) {
-            classes += ` rounded-r-full inset-y-0 left-0 right-1`;
+            classes += ` rounded-r-full inset-0`;
           }
         } else {
           classes += ` inset-0`;
@@ -1170,23 +1222,23 @@ export default /*#__PURE__*/ defineComponent({
     };
 
     const forceEmit = (s, e) => {
-      datepicker.previous = dayjs(s, props.formatter.date, true);
-      datepicker.next = dayjs(e, props.formatter.date, true);
+      datepicker.value.previous = dayjs(s, props.formatter.date, true);
+      datepicker.value.next = dayjs(e, props.formatter.date, true);
       if (
-        dayjs.duration(datepicker.next.diff(datepicker.previous)).$d.months ===
-          2 ||
-        (dayjs.duration(datepicker.next.diff(datepicker.previous)).$d.months ===
-          1 &&
-          dayjs.duration(datepicker.next.diff(datepicker.previous)).$d.days ===
-            7)
+        dayjs.duration(datepicker.value.next.diff(datepicker.value.previous)).$d
+          .months === 2 ||
+        (dayjs.duration(datepicker.value.next.diff(datepicker.value.previous))
+          .$d.months === 1 &&
+          dayjs.duration(datepicker.value.next.diff(datepicker.value.previous))
+            .$d.days === 7)
       ) {
-        datepicker.next = datepicker.next.subtract(1, 'month');
+        datepicker.value.next = datepicker.value.next.subtract(1, 'month');
       }
       if (
-        datepicker.next.isSame(datepicker.previous, 'month') ||
-        datepicker.next.isBefore(datepicker.previous)
+        datepicker.value.next.isSame(datepicker.value.previous, 'month') ||
+        datepicker.value.next.isBefore(datepicker.value.previous)
       ) {
-        datepicker.next = datepicker.previous.add(1, 'month');
+        datepicker.value.next = datepicker.value.previous.add(1, 'month');
       }
     };
 
@@ -1213,7 +1265,7 @@ export default /*#__PURE__*/ defineComponent({
               )
             );
           }
-          value.value = `${s}${props.separator}${e}`;
+          pickerValue.value = `${s}${props.separator}${e}`;
         } else {
           applyValue.value = [
             dayjs(s, props.formatter.date, true),
@@ -1232,7 +1284,7 @@ export default /*#__PURE__*/ defineComponent({
           } else {
             emit('update:modelValue', s);
           }
-          value.value = s;
+          pickerValue.value = s;
         } else {
           applyValue.value = [
             dayjs(s, props.formatter.date, true),
@@ -1302,27 +1354,42 @@ export default /*#__PURE__*/ defineComponent({
       emitShortcut(s, e);
     };
 
+    const locale = () => {
+      return import(`./locale/${props.i18n}`)
+        .then(async module => {
+          return await module.default;
+        })
+        .catch(() => {
+          return import(`./locale/en`).then(async module => {
+            return await module.default;
+          });
+        });
+    };
+
     watch(
       () => isShow.value,
       newValue => {
-        if (newValue && value.value !== '') {
+        nextTick(() => {
+          placement.value = useVisibleViewport(LitepieRef.value);
+        });
+        if (newValue && pickerValue.value !== '') {
           if (asRange()) {
-            const [s, e] = value.value.split(props.separator);
+            const [s, e] = pickerValue.value.split(props.separator);
             const start = dayjs(s, props.formatter.date, true);
             const end = dayjs(e, props.formatter.date, true);
-            datepicker.previous = start;
+            datepicker.value.previous = start;
             if (start.isSame(end, 'month')) {
-              datepicker.next = start.add(1, 'month');
+              datepicker.value.next = start.add(1, 'month');
             } else {
-              datepicker.next = end;
+              datepicker.value.next = end;
             }
           } else {
-            datepicker.previous = dayjs(
-              value.value,
+            datepicker.value.previous = dayjs(
+              pickerValue.value,
               props.formatter.date,
               true
             );
-            datepicker.next = datepicker.previous.add(1, 'month');
+            datepicker.value.next = datepicker.value.previous.add(1, 'month');
           }
         }
       }
@@ -1353,6 +1420,38 @@ export default /*#__PURE__*/ defineComponent({
       } else {
         givenPlaceholder.value = props.placeholder;
       }
+    });
+
+    watchEffect(() => {
+      locale().then(v => {
+        jsonLocale.value = v;
+      });
+    });
+
+    watchEffect(async () => {
+      const locale = props.i18n;
+      await import(`dayjs/locale/${locale}.js`)
+        .then(async () => {
+          await dayjs.locale(locale);
+          datepicker.value = {
+            previous: dayjs(),
+            next: dayjs().add(1, 'month'),
+            year: {
+              previous: dayjs().year(),
+              next: dayjs().year()
+            },
+            weeks: dayjs.weekdaysShort(),
+            months:
+              props.formatter.month === 'MMM'
+                ? dayjs.monthsShort()
+                : dayjs.months()
+          };
+        })
+        .catch(() => {
+          console.warn(
+            `[Litepie Datepicker]: List of supported locales https://github.com/iamkun/dayjs/tree/dev/src/locale`
+          );
+        });
     });
 
     onMounted(() => {
@@ -1400,7 +1499,7 @@ export default /*#__PURE__*/ defineComponent({
           }
 
           if (s && e) {
-            value.value = useToValueFromArray(
+            pickerValue.value = useToValueFromArray(
               {
                 previous: s,
                 next: e
@@ -1409,30 +1508,30 @@ export default /*#__PURE__*/ defineComponent({
             );
             nextTick(() => {
               if (e.isBefore(s, 'month')) {
-                datepicker.previous = e;
-                datepicker.next = s;
-                datepicker.year.previous = e.year();
-                datepicker.year.next = s.year();
+                datepicker.value.previous = e;
+                datepicker.value.next = s;
+                datepicker.value.year.previous = e.year();
+                datepicker.value.year.next = s.year();
               } else if (e.isSame(s, 'month')) {
-                datepicker.previous = s;
-                datepicker.next = e.add(1, 'month');
-                datepicker.year.previous = s.year();
-                datepicker.year.next = s.add(1, 'year').year();
+                datepicker.value.previous = s;
+                datepicker.value.next = e.add(1, 'month');
+                datepicker.value.year.previous = s.year();
+                datepicker.value.year.next = s.add(1, 'year').year();
               } else {
-                datepicker.previous = s;
-                datepicker.next = e;
-                datepicker.year.previous = s.year();
-                datepicker.year.next = e.year();
+                datepicker.value.previous = s;
+                datepicker.value.next = e;
+                datepicker.value.year.previous = s.year();
+                datepicker.value.year.next = e.year();
               }
               if (!props.autoApply) {
                 applyValue.value = [s, e];
               }
             });
           } else {
-            datepicker.previous = dayjs(props.startFrom);
-            datepicker.next = dayjs(props.startFrom).add(1, 'month');
-            datepicker.year.previous = datepicker.previous.year();
-            datepicker.year.next = datepicker.next.year();
+            datepicker.value.previous = dayjs(props.startFrom);
+            datepicker.value.next = dayjs(props.startFrom).add(1, 'month');
+            datepicker.value.year.previous = datepicker.value.previous.year();
+            datepicker.value.year.next = datepicker.value.next.year();
           }
         } else {
           if (useArray()) {
@@ -1454,22 +1553,28 @@ export default /*#__PURE__*/ defineComponent({
 
           if (s && s.isValid()) {
             nextTick(() => {
-              value.value = useToValueFromString(s, props);
-              datepicker.previous = s;
-              datepicker.next = s.add(1, 'month');
-              datepicker.year.previous = s.year();
-              datepicker.year.next = s.add(1, 'year').year();
+              pickerValue.value = useToValueFromString(s, props);
+              datepicker.value.previous = s;
+              datepicker.value.next = s.add(1, 'month');
+              datepicker.value.year.previous = s.year();
+              datepicker.value.year.next = s.add(1, 'year').year();
               if (!props.autoApply) {
                 applyValue.value = [s];
               }
             });
           } else {
-            datepicker.previous = dayjs(props.startFrom);
-            datepicker.next = dayjs(props.startFrom).add(1, 'month');
-            datepicker.year.previous = datepicker.previous.year();
-            datepicker.year.next = datepicker.next.year();
+            datepicker.value.previous = dayjs(props.startFrom);
+            datepicker.value.next = dayjs(props.startFrom).add(1, 'month');
+            datepicker.value.year.previous = datepicker.value.previous.year();
+            datepicker.value.year.next = datepicker.value.next.year();
           }
         }
+      });
+    });
+
+    onUpdated(() => {
+      nextTick(() => {
+        placement.value = useVisibleViewport(LitepieRef.value);
       });
     });
 
@@ -1485,14 +1590,17 @@ export default /*#__PURE__*/ defineComponent({
     provide('setToCustomShortcut', setToCustomShortcut);
 
     return {
+      LitepieRef,
       LitepieDatepickerRef,
       LitepieInputRef,
       isShow,
+      placement,
+      jsonLocale,
       givenPlaceholder,
       previous,
       next,
       panel,
-      value,
+      pickerValue,
       hoverValue,
       applyValue,
       datepicker,
@@ -1522,12 +1630,10 @@ export default /*#__PURE__*/ defineComponent({
 .litepie-datepicker-overlay.open::before {
   @apply block opacity-50;
 }
-.litepie-datepicker {
-  --litepie-datepicker: 0px;
-}
 .litepie-datepicker::before {
+  --litepie-datepicker: 0px;
   content: '';
-  @apply absolute left-3 top-0 w-4 h-4 bg-white shadow border border-black border-opacity-10 dark:bg-litepie-secondary-800 dark:border-litepie-secondary-700 dark:border-opacity-100;
+  @apply absolute top-0 w-4 h-4 bg-white shadow border border-black border-opacity-10 dark:bg-litepie-secondary-800 dark:border-litepie-secondary-700 dark:border-opacity-100;
   transform: translate(50%, -50%) rotate(-45deg);
   clip-path: polygon(
     calc(var(--litepie-datepicker) * -1) calc(var(--litepie-datepicker) * -1),
@@ -1535,5 +1641,11 @@ export default /*#__PURE__*/ defineComponent({
     calc(100% + var(--litepie-datepicker))
       calc(100% + var(--litepie-datepicker))
   );
+}
+.litepie-datepicker.place-left::before {
+  @apply left-1;
+}
+.litepie-datepicker.place-right::before {
+  @apply right-5;
 }
 </style>

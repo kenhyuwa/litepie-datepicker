@@ -64,6 +64,14 @@ export default {
       <img src="https://raw.githubusercontent.com/kenhyuwa/litepie-datepicker/main/assets/dark-mode.png" alt="Dark mode" />
   </p>
 
+## Road map todo
+
+Add shortcuts and footer localization match with `dayjs` locale.
+
+- [x] English [en]
+- [x] Indonesia [id]
+- [ ] _other_
+
 ## Changelog
 All notable changes to this project will be documented in this file, [Read](CHANGELOG.md).
 

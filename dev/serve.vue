@@ -5,13 +5,13 @@
     >
       <div class="mt-10 w-full">
         <div
-          class="max-w-lg mx-auto px-6 py-5 bg-white dark:bg-gray-800 rounded-lg"
+          class="max-w-lg mx-autos ml-auto px-6 py-5 bg-white dark:bg-gray-800 rounded-lg"
         >
           <div class="flex flex-col">
             <div class="w-full">
               <vue3-tailwind-datepicker
                 ref="s"
-                overlay
+                i18n="id"
                 :use-range="true"
                 :formatter="formatter"
                 v-model="dateValue"
@@ -99,10 +99,10 @@ export default defineComponent({
       ];
     };
     onMounted(() => {
-      dateValue.value = {
-        startDate: '20 Mar 2021',
-        endDate: '20 Aug 2021'
-      };
+      // dateValue.value = {
+      //   startDate: '20 Mar 2021',
+      //   endDate: '20 Aug 2021'
+      // };
       // dateValue.value = [new Date(2019, 9, 8), new Date(2019, 9, 19)];
       // dateValue.value = `${new Date(2019, 9, 8).toString()} ~ ${new Date(
       //   2019,
@@ -120,8 +120,8 @@ export default defineComponent({
       shortcuts,
       away,
       formatter: ref({
-        date: 'DD MMM YYYY',
-        month: 'MMM'
+        date: 'DD MMMM YYYY',
+        month: 'MMMM'
       })
     };
   }

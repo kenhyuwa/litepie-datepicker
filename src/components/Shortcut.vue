@@ -27,7 +27,7 @@
           class="block text-sm lg:text-xs px-2 py-2 sm:leading-4 whitespace-nowrap font-medium rounded text-litepie-primary-600 hover:text-litepie-primary-700 transition-colors hover:bg-litepie-secondary-100 focus:bg-litepie-secondary-100 focus:text-litepie-primary-600 dark:hover:bg-litepie-secondary-700 dark:hover:text-litepie-primary-300 dark:text-litepie-primary-400 dark:focus:bg-litepie-secondary-700 dark:focus:text-litepie-primary-300"
           @click.prevent="setToToday"
         >
-          Today
+          {{ jsonLocale && jsonLocale.today }}
         </a>
       </li>
       <li>
@@ -36,7 +36,7 @@
           class="block text-sm lg:text-xs px-2 py-2 sm:leading-4 whitespace-nowrap font-medium rounded text-litepie-primary-600 hover:text-litepie-primary-700 transition-colors hover:bg-litepie-secondary-100 focus:bg-litepie-secondary-100 focus:text-litepie-primary-600 dark:hover:bg-litepie-secondary-700 dark:hover:text-litepie-primary-300 dark:text-litepie-primary-400 dark:focus:bg-litepie-secondary-700 dark:focus:text-litepie-primary-300"
           @click.prevent="setToYesterday"
         >
-          Yesterday
+          {{ jsonLocale && jsonLocale.yesterday }}
         </a>
       </li>
       <li>
@@ -45,7 +45,7 @@
           class="block text-sm lg:text-xs px-2 py-2 sm:leading-4 whitespace-nowrap font-medium rounded text-litepie-primary-600 hover:text-litepie-primary-700 transition-colors hover:bg-litepie-secondary-100 focus:bg-litepie-secondary-100 focus:text-litepie-primary-600 dark:hover:bg-litepie-secondary-700 dark:hover:text-litepie-primary-300 dark:text-litepie-primary-400 dark:focus:bg-litepie-secondary-700 dark:focus:text-litepie-primary-300"
           @click.prevent="setToLastDay(7)"
         >
-          Last 7 Days
+          {{ jsonLocale && jsonLocale.past(7) }}
         </a>
       </li>
       <li>
@@ -54,7 +54,7 @@
           class="block text-sm lg:text-xs px-2 py-2 sm:leading-4 whitespace-nowrap font-medium rounded text-litepie-primary-600 hover:text-litepie-primary-700 transition-colors hover:bg-litepie-secondary-100 focus:bg-litepie-secondary-100 focus:text-litepie-primary-600 dark:hover:bg-litepie-secondary-700 dark:hover:text-litepie-primary-300 dark:text-litepie-primary-400 dark:focus:bg-litepie-secondary-700 dark:focus:text-litepie-primary-300"
           @click.prevent="setToLastDay(30)"
         >
-          Last 30 Days
+          {{ jsonLocale && jsonLocale.past(30) }}
         </a>
       </li>
       <li>
@@ -63,7 +63,7 @@
           class="block text-sm lg:text-xs px-2 py-2 sm:leading-4 whitespace-nowrap font-medium rounded text-litepie-primary-600 hover:text-litepie-primary-700 transition-colors hover:bg-litepie-secondary-100 focus:bg-litepie-secondary-100 focus:text-litepie-primary-600 dark:hover:bg-litepie-secondary-700 dark:hover:text-litepie-primary-300 dark:text-litepie-primary-400 dark:focus:bg-litepie-secondary-700 dark:focus:text-litepie-primary-300"
           @click.prevent="setToThisMonth"
         >
-          This Month
+          {{ jsonLocale && jsonLocale.currentMonth }}
         </a>
       </li>
       <li>
@@ -72,7 +72,7 @@
           class="block text-sm lg:text-xs px-2 py-2 sm:leading-4 whitespace-nowrap font-medium rounded text-litepie-primary-600 hover:text-litepie-primary-700 transition-colors hover:bg-litepie-secondary-100 focus:bg-litepie-secondary-100 focus:text-litepie-primary-600 dark:hover:bg-litepie-secondary-700 dark:hover:text-litepie-primary-300 dark:text-litepie-primary-400 dark:focus:bg-litepie-secondary-700 dark:focus:text-litepie-primary-300"
           @click.prevent="setToLastMonth"
         >
-          Last Month
+          {{ jsonLocale && jsonLocale.pastMonth }}
         </a>
       </li>
     </ol>
@@ -80,17 +80,19 @@
 </template>
 
 <script>
-import { inject } from 'vue';
+import { ref, inject, watchEffect } from 'vue';
 
 export default {
   name: 'LitepieShortcut',
   props: {
     shortcuts: [Boolean, Function],
     asRange: Boolean,
-    asSingle: Boolean
+    asSingle: Boolean,
+    i18n: String
   },
   inheritAttrs: false,
   setup(props) {
+    const jsonLocale = ref(null);
     const setToToday = inject('setToToday');
     const setToYesterday = inject('setToYesterday');
     const setToLastDay = inject('setToLastDay');
@@ -104,8 +106,26 @@ export default {
         return false;
       }
     };
+    const locale = () => {
+      return import(`./../locale/${props.i18n}`)
+        .then(async module => {
+          return await module.default;
+        })
+        .catch(() => {
+          return import(`./../locale/en`).then(async module => {
+            return await module.default;
+          });
+        });
+    };
+
+    watchEffect(() => {
+      locale().then(v => {
+        jsonLocale.value = v;
+      });
+    });
 
     return {
+      jsonLocale,
       setToToday,
       setToYesterday,
       setToLastDay,
