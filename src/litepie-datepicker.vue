@@ -1380,29 +1380,9 @@ export default /*#__PURE__*/ defineComponent({
 
     watch(
       () => isShow.value,
-      newValue => {
+      () => {
         nextTick(() => {
           placement.value = useVisibleViewport(LitepieRef.value);
-          if (newValue && pickerValue.value !== '') {
-            if (asRange()) {
-              const [s, e] = pickerValue.value.split(props.separator);
-              const start = dayjs(s, props.formatter.date, true);
-              const end = dayjs(e, props.formatter.date, true);
-              datepicker.value.previous = start;
-              if (start.isSame(end, 'month')) {
-                datepicker.value.next = start.add(1, 'month');
-              } else {
-                datepicker.value.next = end;
-              }
-            } else {
-              datepicker.value.previous = dayjs(
-                pickerValue.value,
-                props.formatter.date,
-                true
-              );
-              datepicker.value.next = datepicker.value.previous.add(1, 'month');
-            }
-          }
         });
       }
     );

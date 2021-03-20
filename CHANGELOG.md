@@ -62,6 +62,10 @@ All notable changes to this project will be documented in this file.
 
 - Added trigger `emit` on keyup event.
 
+## [1.0.12]
+
+- Fix issues localization lazy load.
+
 [Released]: https://github.com/kenhyuwa/litepie-datepicker/
 [1.0.0]: https://github.com/kenhyuwa/litepie-datepicker/releases/tag/v1.0.0
 [1.0.1]: https://github.com/kenhyuwa/litepie-datepicker/releases/tag/v1.0.1
@@ -75,3 +79,4 @@ All notable changes to this project will be documented in this file.
 [1.0.9]: https://github.com/kenhyuwa/litepie-datepicker/releases/tag/v1.0.9
 [1.0.10]: https://github.com/kenhyuwa/litepie-datepicker/releases/tag/v1.0.10
 [1.0.11]: https://github.com/kenhyuwa/litepie-datepicker/releases/tag/v1.0.11
+[1.0.12]: https://github.com/kenhyuwa/litepie-datepicker/releases/tag/v1.0.12

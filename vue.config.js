@@ -43,7 +43,7 @@ module.exports = {
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black',
     manifestOptions: {
-      orientation: 'landscape',
+      orientation: 'portrait',
       background_color: '#ffffff',
       icons: [
         {
