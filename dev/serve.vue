@@ -4,24 +4,31 @@
       class="bg-white dark:bg-gray-900 max-w-screen-2xl h-screen mx-auto flex items-stretch overflow-y-auto"
     >
       <div class="mt-10 w-full">
-        <div
-          class="max-w-lg mx-autos ml-auto px-6 py-5 bg-white dark:bg-gray-800 rounded-lg"
-        >
+        <div class="max-w-lg px-6 py-5 bg-white dark:bg-gray-800 rounded-lg">
           <div class="flex flex-col">
             <div class="w-full">
               <litepie-datepicker
                 ref="s"
-                i18n="zh"
-                :use-range="true"
-                :formatter="formatter"
-                v-model="dateValue"
-                v-slot:default="{ value }"
-                trigger="away"
-                :disable-in-range="false"
-                :start-from="new Date(2018, 0, 1)"
+                i18n="id"
+                :formatter="{
+                  date: 'DD MMMM YYYY',
+                  month: 'MMM'
+                }"
+                :options="{
+                  shortcuts: {
+                    today: 'Hari ini',
+                    yesterday: 'Kemarin',
+                    past: period => period + ' hari terakhir',
+                    currentMonth: 'Bulan ini',
+                    pastMonth: 'Bulan lalu'
+                  },
+                  footer: {
+                    apply: 'Terapkan',
+                    cancel: 'Batal'
+                  }
+                }"
                 :auto-apply="false"
-                :disable-date="d"
-                placeholder="Check"
+                v-model="dateValue"
               >
               </litepie-datepicker>
             </div>
@@ -76,7 +83,7 @@ export default defineComponent({
   },
   setup() {
     const away = ref(null);
-    const dateValue = ref(null);
+    const dateValue = ref([]);
     const shortcuts = () => {
       return [
         {

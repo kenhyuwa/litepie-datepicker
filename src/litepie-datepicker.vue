@@ -742,11 +742,39 @@ export default /*#__PURE__*/ defineComponent({
         if (sd.isValid() && ed.isValid()) {
           setDate(sd);
           setDate(ed);
+          if (useArray()) {
+            emit('update:modelValue', [s, e]);
+          } else if (useObject()) {
+            const obj = {};
+            obj[start] = s;
+            obj[end] = e;
+            emit('update:modelValue', obj);
+          } else {
+            emit(
+              'update:modelValue',
+              useToValueFromArray(
+                {
+                  previous: sd,
+                  next: ed
+                },
+                props
+              )
+            );
+          }
         }
       } else {
         const d = dayjs(pickerValue.value, props.formatter.date, true);
         if (d.isValid()) {
           setDate(d);
+          if (useArray()) {
+            emit('update:modelValue', [pickerValue.value]);
+          } else if (useObject()) {
+            const obj = {};
+            obj[start] = pickerValue.value;
+            emit('update:modelValue', obj);
+          } else {
+            emit('update:modelValue', pickerValue.value);
+          }
         }
       }
     };
@@ -944,8 +972,6 @@ export default /*#__PURE__*/ defineComponent({
           emit('update:modelValue', pickerValue.value);
         }
       }
-      isShow.value = false;
-      force();
     };
 
     const atMouseOver = date => {
@@ -1238,9 +1264,6 @@ export default /*#__PURE__*/ defineComponent({
       ) {
         datepicker.value.next = datepicker.value.previous.add(1, 'month');
       }
-      nextTick(() => {
-        force();
-      });
     };
 
     const emitShortcut = (s, e) => {
@@ -1360,27 +1383,27 @@ export default /*#__PURE__*/ defineComponent({
       newValue => {
         nextTick(() => {
           placement.value = useVisibleViewport(LitepieRef.value);
-        });
-        if (newValue && pickerValue.value !== '') {
-          if (asRange()) {
-            const [s, e] = pickerValue.value.split(props.separator);
-            const start = dayjs(s, props.formatter.date, true);
-            const end = dayjs(e, props.formatter.date, true);
-            datepicker.value.previous = start;
-            if (start.isSame(end, 'month')) {
-              datepicker.value.next = start.add(1, 'month');
+          if (newValue && pickerValue.value !== '') {
+            if (asRange()) {
+              const [s, e] = pickerValue.value.split(props.separator);
+              const start = dayjs(s, props.formatter.date, true);
+              const end = dayjs(e, props.formatter.date, true);
+              datepicker.value.previous = start;
+              if (start.isSame(end, 'month')) {
+                datepicker.value.next = start.add(1, 'month');
+              } else {
+                datepicker.value.next = end;
+              }
             } else {
-              datepicker.value.next = end;
+              datepicker.value.previous = dayjs(
+                pickerValue.value,
+                props.formatter.date,
+                true
+              );
+              datepicker.value.next = datepicker.value.previous.add(1, 'month');
             }
-          } else {
-            datepicker.value.previous = dayjs(
-              pickerValue.value,
-              props.formatter.date,
-              true
-            );
-            datepicker.value.next = datepicker.value.previous.add(1, 'month');
           }
-        }
+        });
       }
     );
 
@@ -1412,8 +1435,8 @@ export default /*#__PURE__*/ defineComponent({
     });
 
     onMounted(() => {
+      const locale = props.i18n;
       nextTick(() => {
-        const locale = props.i18n;
         import(`dayjs/locale/${locale}.js`)
           .then(() => {
             dayjs.locale(locale);
@@ -1467,27 +1490,25 @@ export default /*#__PURE__*/ defineComponent({
                   },
                   props
                 );
-                nextTick(() => {
-                  if (e.isBefore(s, 'month')) {
-                    datepicker.value.previous = e;
-                    datepicker.value.next = s;
-                    datepicker.value.year.previous = e.year();
-                    datepicker.value.year.next = s.year();
-                  } else if (e.isSame(s, 'month')) {
-                    datepicker.value.previous = s;
-                    datepicker.value.next = e.add(1, 'month');
-                    datepicker.value.year.previous = s.year();
-                    datepicker.value.year.next = s.add(1, 'year').year();
-                  } else {
-                    datepicker.value.previous = s;
-                    datepicker.value.next = e;
-                    datepicker.value.year.previous = s.year();
-                    datepicker.value.year.next = e.year();
-                  }
-                  if (!props.autoApply) {
-                    applyValue.value = [s, e];
-                  }
-                });
+                if (e.isBefore(s, 'month')) {
+                  datepicker.value.previous = e;
+                  datepicker.value.next = s;
+                  datepicker.value.year.previous = e.year();
+                  datepicker.value.year.next = s.year();
+                } else if (e.isSame(s, 'month')) {
+                  datepicker.value.previous = s;
+                  datepicker.value.next = e.add(1, 'month');
+                  datepicker.value.year.previous = s.year();
+                  datepicker.value.year.next = s.add(1, 'year').year();
+                } else {
+                  datepicker.value.previous = s;
+                  datepicker.value.next = e;
+                  datepicker.value.year.previous = s.year();
+                  datepicker.value.year.next = e.year();
+                }
+                if (!props.autoApply) {
+                  applyValue.value = [s, e];
+                }
               } else {
                 datepicker.value.previous = dayjs(props.startFrom);
                 datepicker.value.next = dayjs(props.startFrom).add(1, 'month');
@@ -1513,16 +1534,14 @@ export default /*#__PURE__*/ defineComponent({
               }
 
               if (s && s.isValid()) {
-                nextTick(() => {
-                  pickerValue.value = useToValueFromString(s, props);
-                  datepicker.value.previous = s;
-                  datepicker.value.next = s.add(1, 'month');
-                  datepicker.value.year.previous = s.year();
-                  datepicker.value.year.next = s.add(1, 'year').year();
-                  if (!props.autoApply) {
-                    applyValue.value = [s];
-                  }
-                });
+                pickerValue.value = useToValueFromString(s, props);
+                datepicker.value.previous = s;
+                datepicker.value.next = s.add(1, 'month');
+                datepicker.value.year.previous = s.year();
+                datepicker.value.year.next = s.add(1, 'year').year();
+                if (!props.autoApply) {
+                  applyValue.value = [s];
+                }
               } else {
                 datepicker.value.previous = dayjs(props.startFrom);
                 datepicker.value.next = dayjs(props.startFrom).add(1, 'month');
