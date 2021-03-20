@@ -13,11 +13,13 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   name: 'LitepieWeek',
   props: {
     weeks: Array
   },
   inheritAttrs: false
-};
+});
 </script>

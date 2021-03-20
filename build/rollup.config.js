@@ -10,7 +10,6 @@ import babel from '@rollup/plugin-babel';
 import PostCSS from 'rollup-plugin-postcss';
 import { terser } from 'rollup-plugin-terser';
 import minimist from 'minimist';
-import copy from 'rollup-plugin-copy';
 
 // Get browserslist config and remove ie from es build targets
 const esbrowserslist = fs
@@ -121,10 +120,7 @@ if (!argv.format || argv.format === 'es') {
           ]
         ]
       }),
-      commonjs(),
-      copy({
-        targets: [{ src: 'src/locale/*', dest: 'dist/locale' }]
-      })
+      commonjs()
     ]
   };
   buildFormats.push(esConfig);

@@ -87,6 +87,12 @@ export const useDirective = binding => {
         if ($event.target.classList.contains(`${arg}-cancel-picker`)) {
           return (instance.isShow = false);
         }
+        if (
+          $event.target.classList.contains(`litepie-shortcuts`) &&
+          autoApply
+        ) {
+          return (instance.isShow = false);
+        }
 
         return (instance.isShow =
           instance.LitepieDatepickerRef.contains($event.target) ||

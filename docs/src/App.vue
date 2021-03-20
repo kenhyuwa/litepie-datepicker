@@ -944,15 +944,15 @@
                 </div>
               </div>
             </div>
-            <div id="footer" class="pt-6 sm:pt-8">
+            <div id="options" class="pt-6 sm:pt-8">
               <h3 class="group flex items-center font-semibold">
                 <a
-                  href="#footer"
+                  href="#options"
                   class="absolute after:hash opacity-0 group-hover:opacity-100 -ml-4 text-light-blue-400"
                   aria-label="Anchor"
                 ></a>
                 <span class="text-lg text-gray-900">
-                  Footer
+                  Options
                 </span>
               </h3>
               <div
@@ -960,19 +960,28 @@
               >
                 <div class="w-full max-w-md">
                   <litepie-datepicker
-                    :footer="{
-                      apply: 'OK',
-                      cancel: 'Close'
+                    :options="{
+                      shortcuts: {
+                        today: 'Hari ini',
+                        yesterday: 'Kemarin',
+                        past: period => period + ' hari terakhir',
+                        currentMonth: 'Bulan ini',
+                        pastMonth: 'Bulan lalu'
+                      },
+                      footer: {
+                        apply: 'Terapkan',
+                        cancel: 'Batal'
+                      }
                     }"
                     :auto-apply="false"
                     :formatter="playFormatter"
-                    v-model="dateValue.footer"
+                    v-model="dateValue.options"
                   />
                 </div>
                 <div class="col-span-2">
                   <div class="rounded-xl overflow-hidden">
                     <div class="bg-light-blue-500">
-                      <v-prims language="html" :code="playground.footer">
+                      <v-prims language="html" :code="playground.options">
                       </v-prims>
                     </div>
                   </div>
@@ -1113,6 +1122,64 @@
                     <div class="bg-light-blue-500">
                       <v-prims language="html" :code="advance.customShortcuts">
                       </v-prims>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="i18n" class="pt-6 sm:pt-8">
+              <h3 class="group flex items-center font-semibold">
+                <a
+                  href="#i18n"
+                  class="absolute after:hash opacity-0 group-hover:opacity-100 -ml-4 text-light-blue-400"
+                  aria-label="Anchor"
+                ></a>
+                <span class="text-lg text-gray-900">
+                  Localization(i18n)
+                </span>
+              </h3>
+              <div>
+                <p>
+                  Litepie Datepicker extend to day.js,
+                  <a
+                    href="https://github.com/iamkun/dayjs/tree/dev/src/locale"
+                    target="_blank"
+                    class="text-light-blue-400"
+                    >List of supported locales</a
+                  >.
+                </p>
+              </div>
+              <div
+                class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-y-8 sm:gap-y-12 lg:gap-y-0 lg:gap-x-8"
+              >
+                <div class="w-full max-w-md">
+                  <litepie-datepicker
+                    i18n="id"
+                    :formatter="{
+                      date: 'DD MMMM YYYY',
+                      month: 'MMM'
+                    }"
+                    :options="{
+                      shortcuts: {
+                        today: 'Hari ini',
+                        yesterday: 'Kemarin',
+                        past: period => period + ' hari terakhir',
+                        currentMonth: 'Bulan ini',
+                        pastMonth: 'Bulan lalu'
+                      },
+                      footer: {
+                        apply: 'Terapkan',
+                        cancel: 'Batal'
+                      }
+                    }"
+                    :auto-apply="false"
+                    v-model="dateValue.i18n"
+                  />
+                </div>
+                <div class="col-span-2">
+                  <div class="rounded-xl overflow-hidden">
+                    <div class="bg-light-blue-500">
+                      <v-prims language="html" :code="advance.i18n"> </v-prims>
                     </div>
                   </div>
                 </div>
@@ -1307,14 +1374,15 @@ export default {
       ],
       trigger: [],
       slots: [],
-      footer: [],
+      options: [],
       useArray: [],
       useObject: {
         startDate: '',
         endDate: ''
       },
       useString: '',
-      customShortcuts: []
+      customShortcuts: [],
+      i18n: []
     });
 
     const customShortcuts = () => {

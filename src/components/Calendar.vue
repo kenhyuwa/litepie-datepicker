@@ -25,7 +25,7 @@
         >
           <span
             v-if="isBetweenRange(date) || date.hovered()"
-            class="absolute bg-litepie-primary-100 dark:bg-litepie-secondary-700 dark:bg-opacity-50"
+            class="absolute bg-litepie-primary-100 bg-opacity-60 dark:bg-litepie-secondary-700 dark:bg-opacity-50"
             :class="betweenRangeClasses(date)"
           ></span>
         </transition>
@@ -49,9 +49,9 @@
 </template>
 
 <script>
-import { inject } from 'vue';
+import { defineComponent, inject } from 'vue';
 
-export default {
+export default defineComponent({
   name: 'LitepieCalendar',
   props: {
     asPrevOrNext: Boolean,
@@ -74,7 +74,7 @@ export default {
       atMouseOver
     };
   }
-};
+});
 </script>
 
 <!-- TODO: Tooltip implementasion-->

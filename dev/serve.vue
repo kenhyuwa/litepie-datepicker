@@ -9,7 +9,7 @@
         >
           <div class="flex flex-col">
             <div class="w-full">
-              <vue3-tailwind-datepicker
+              <litepie-datepicker
                 ref="s"
                 i18n="id"
                 :use-range="true"
@@ -23,7 +23,7 @@
                 :disable-date="d"
                 placeholder="Check"
               >
-              </vue3-tailwind-datepicker>
+              </litepie-datepicker>
             </div>
             <div class="flex px-2 space-x-2 mt-4">
               <button
@@ -66,13 +66,13 @@
 
 <script>
 import { defineComponent, ref, onMounted } from 'vue';
-import Vue3TailwindDatepicker from '@/litepie-datepicker.vue';
+import LitepieDatepicker from '@/litepie-datepicker.vue';
 import 'tailwindcss/tailwind.css';
 
 export default defineComponent({
   name: 'ServeDev',
   components: {
-    Vue3TailwindDatepicker
+    LitepieDatepicker
   },
   setup() {
     const away = ref(null);

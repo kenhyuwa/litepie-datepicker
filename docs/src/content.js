@@ -465,10 +465,11 @@ export default {
 };
 </script>`;
 
-  const footer = `<template>
+  const options = `<template>
   <div class="flex">
     <litepie-datepicker
-      :footer="footerProps"
+      :options="options"
+      :auto-apply="false"
       v-model="dateValue"
     ></litepie-datepicker>
   </div>
@@ -481,14 +482,23 @@ export default {
   name: 'MyComponent',
   setup() {
     const dateValue = ref([]);
-    const footerProps = {
-      apply: 'OK',
-      cancel: 'Close'
-    };
+    const options = ref({
+      shortcuts: {
+        today: 'Hari ini',
+        yesterday: 'Kemarin',
+        past: period => period + ' hari terakhir',
+        currentMonth: 'Bulan ini',
+        pastMonth: 'Bulan lalu'
+      },
+      footer: {
+        apply: 'Terapkan',
+        cancel: 'Batal'
+      }
+    })
 
     return {
       dateValue,
-      footerProps
+      options
     };
   }
 };
@@ -621,6 +631,46 @@ export default {
 };
 </script>`;
 
+  const i18n = `<template>
+  <div class="flex">
+    <litepie-datepicker
+      i18n="id"
+      :auto-apply="false"
+      :options="options"
+      v-model="dateValue"
+    ></litepie-datepicker>
+  </div>
+</template>
+
+<script>
+import { ref } from 'vue';
+
+export default {
+  name: 'MyComponent',
+  setup() {
+    const dateValue = ref('');
+    const options = ref({
+      shortcuts: {
+        today: 'Hari ini',
+        yesterday: 'Kemarin',
+        past: period => period + ' hari terakhir',
+        currentMonth: 'Bulan ini',
+        pastMonth: 'Bulan lalu'
+      },
+      footer: {
+        apply: 'Terapkan',
+        cancel: 'Batal'
+      }
+    })
+
+    return {
+      dateValue,
+      options
+    };
+  }
+};
+</script>`;
+
   return {
     twConfig,
     itWorks,
@@ -639,13 +689,14 @@ export default {
       disableInRange,
       trigger,
       useSlot,
-      footer
+      options
     },
     advance: {
       useArray,
       useObject,
       useString,
-      customShortcuts
+      customShortcuts,
+      i18n
     }
   };
 };

@@ -86,13 +86,13 @@
                 :shortcuts="shortcuts"
                 :as-range="asRange()"
                 :as-single="asSingle"
-                :i18n="i18n"
+                :i18n="options.shortcuts"
               />
               <!--          Calendar-->
               <div class="relative flex flex-wrap sm:flex-nowrap p-1">
                 <div
                   v-if="asRange() && !asSingle"
-                  class="absolute inset-0 flex justify-center items-center"
+                  class="hidden absolute inset-0 sm:flex justify-center items-center"
                 >
                   <div
                     class="w-8 sm:w-1 h-1 sm:h-8 bg-litepie-primary-500 rounded-xl shadow-inner"
@@ -192,20 +192,12 @@
                       asSingle ? applyValue.length < 1 : applyValue.length < 2
                     "
                     @click="applyDate"
-                    v-text="
-                      footer
-                        ? footer.apply
-                        : jsonLocale && jsonLocale.button.apply
-                    "
+                    v-text="options.footer.apply"
                   ></button>
                   <button
                     type="button"
                     class="mt-3 away-cancel-picker w-full transition ease-out duration-300 inline-flex justify-center rounded-md border border-litepie-secondary-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-litepie-secondary-700 hover:bg-litepie-secondary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-litepie-primary-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm dark:ring-offset-litepie-secondary-800"
-                    v-text="
-                      footer
-                        ? footer.cancel
-                        : jsonLocale && jsonLocale.button.cancel
-                    "
+                    v-text="options.footer.cancel"
                   ></button>
                 </div>
               </div>
@@ -218,11 +210,7 @@
                   <button
                     type="button"
                     class="away-cancel-picker w-full transition ease-out duration-300 inline-flex justify-center rounded-md border border-litepie-secondary-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-litepie-secondary-700 hover:bg-litepie-secondary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-litepie-primary-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm dark:ring-offset-litepie-secondary-800"
-                    v-text="
-                      footer
-                        ? footer.cancel
-                        : jsonLocale && jsonLocale.button.cancel
-                    "
+                    v-text="options.footer.cancel"
                   ></button>
                 </div>
               </div>
@@ -253,8 +241,7 @@ import {
   isProxy,
   watchEffect,
   watch,
-  unref,
-  onUpdated
+  unref
 } from 'vue';
 import {
   useCurrentDate,
@@ -354,9 +341,21 @@ export default /*#__PURE__*/ defineComponent({
       type: [Object, String],
       default: () => new Date()
     },
-    footer: {
+    options: {
       type: Object,
-      default: () => undefined
+      default: () => ({
+        shortcuts: {
+          today: 'Today',
+          yesterday: 'Yesterday',
+          past: period => `Last ${period} Days`,
+          currentMonth: 'This Month',
+          pastMonth: 'Last Month'
+        },
+        footer: {
+          apply: 'Apply',
+          cancel: 'Cancel'
+        }
+      })
     }
   },
   inheritAttrs: false,
@@ -367,7 +366,6 @@ export default /*#__PURE__*/ defineComponent({
     const LitepieInputRef = ref(null);
     const isShow = ref(false);
     const placement = ref(true);
-    const jsonLocale = ref(null);
     const givenPlaceholder = ref('');
     const selection = ref(null);
     const pickerValue = ref('');
@@ -1240,6 +1238,9 @@ export default /*#__PURE__*/ defineComponent({
       ) {
         datepicker.value.next = datepicker.value.previous.add(1, 'month');
       }
+      nextTick(() => {
+        force();
+      });
     };
 
     const emitShortcut = (s, e) => {
@@ -1354,18 +1355,6 @@ export default /*#__PURE__*/ defineComponent({
       emitShortcut(s, e);
     };
 
-    const locale = () => {
-      return import(`./locale/${props.i18n}`)
-        .then(async module => {
-          return await module.default;
-        })
-        .catch(() => {
-          return import(`./locale/en`).then(async module => {
-            return await module.default;
-          });
-        });
-    };
-
     watch(
       () => isShow.value,
       newValue => {
@@ -1420,12 +1409,6 @@ export default /*#__PURE__*/ defineComponent({
       } else {
         givenPlaceholder.value = props.placeholder;
       }
-    });
-
-    watchEffect(() => {
-      locale().then(v => {
-        jsonLocale.value = v;
-      });
     });
 
     watchEffect(async () => {
@@ -1572,13 +1555,6 @@ export default /*#__PURE__*/ defineComponent({
       });
     });
 
-    onUpdated(() => {
-      nextTick(() => {
-        placement.value = useVisibleViewport(LitepieRef.value);
-      });
-    });
-
-    provide('jsonLocale', jsonLocale);
     provide('isBetweenRange', isBetweenRange);
     provide('betweenRangeClasses', betweenRangeClasses);
     provide('datepickerClasses', datepickerClasses);
@@ -1596,7 +1572,6 @@ export default /*#__PURE__*/ defineComponent({
       LitepieInputRef,
       isShow,
       placement,
-      jsonLocale,
       givenPlaceholder,
       previous,
       next,
