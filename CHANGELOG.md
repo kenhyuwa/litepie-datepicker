@@ -54,6 +54,10 @@ All notable changes to this project will be documented in this file.
 - Fix bug `auto-apply` if shortcuts clicked.
 - Add new props `options`, [Example](https://litepie.com/#options).
 
+## [1.0.10]
+
+- Fix bug `start-from` if using localization.
+
 [Released]: https://github.com/kenhyuwa/litepie-datepicker/
 [1.0.0]: https://github.com/kenhyuwa/litepie-datepicker/releases/tag/v1.0.0
 [1.0.1]: https://github.com/kenhyuwa/litepie-datepicker/releases/tag/v1.0.1
@@ -65,3 +69,4 @@ All notable changes to this project will be documented in this file.
 [1.0.7]: https://github.com/kenhyuwa/litepie-datepicker/releases/tag/v1.0.7
 [1.0.8]: https://github.com/kenhyuwa/litepie-datepicker/releases/tag/v1.0.8
 [1.0.9]: https://github.com/kenhyuwa/litepie-datepicker/releases/tag/v1.0.9
+[1.0.10]: https://github.com/kenhyuwa/litepie-datepicker/releases/tag/v1.0.10

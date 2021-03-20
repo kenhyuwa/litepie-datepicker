@@ -1413,7 +1413,7 @@ export default {
           const [s, e] = heroModel.value;
           const { $H, $m, $s } = dayjs();
 
-          myRef.value.value = `${dayjs(s, formatter.value.date)
+          myRef.value.pickerValue = `${dayjs(s, formatter.value.date)
             .hour($H)
             .minute($m)
             .second($s)

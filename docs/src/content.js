@@ -648,7 +648,7 @@ import { ref } from 'vue';
 export default {
   name: 'MyComponent',
   setup() {
-    const dateValue = ref('');
+    const dateValue = ref([]);
     const options = ref({
       shortcuts: {
         today: 'Hari ini',

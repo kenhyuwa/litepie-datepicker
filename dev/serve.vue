@@ -11,7 +11,7 @@
             <div class="w-full">
               <litepie-datepicker
                 ref="s"
-                i18n="id"
+                i18n="zh"
                 :use-range="true"
                 :formatter="formatter"
                 v-model="dateValue"
@@ -100,8 +100,8 @@ export default defineComponent({
     };
     onMounted(() => {
       // dateValue.value = {
-      //   startDate: '20 Mar 2021',
-      //   endDate: '20 Aug 2021'
+      //   startDate: '20 一月 2021',
+      //   endDate: '20 一月 2021'
       // };
       // dateValue.value = [new Date(2019, 9, 8), new Date(2019, 9, 19)];
       // dateValue.value = `${new Date(2019, 9, 8).toString()} ~ ${new Date(

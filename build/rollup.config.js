@@ -100,7 +100,6 @@ if (!argv.format || argv.format === 'es') {
     external,
     output: {
       file: 'dist/litepie-datepicker.esm.js',
-      inlineDynamicImports: true,
       format: 'esm',
       exports: 'named'
     },
@@ -133,7 +132,6 @@ if (!argv.format || argv.format === 'cjs') {
     output: {
       compact: true,
       file: 'dist/litepie-datepicker.ssr.js',
-      inlineDynamicImports: true,
       format: 'cjs',
       name: 'LitepieDatepicker',
       exports: 'auto',
@@ -158,7 +156,6 @@ if (!argv.format || argv.format === 'iife') {
     output: {
       compact: true,
       file: 'dist/litepie-datepicker.min.js',
-      inlineDynamicImports: true,
       format: 'iife',
       name: 'LitepieDatepicker',
       exports: 'auto',
