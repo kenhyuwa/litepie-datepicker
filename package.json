@@ -1,6 +1,6 @@
 {
   "name": "litepie-datepicker",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "A date range picker component for Vue.js and Tailwind CSS, dependent to day.js",
   "main": "dist/litepie-datepicker.ssr.js",
   "browser": "dist/litepie-datepicker.esm.js",
@@ -36,14 +36,15 @@
   },
   "sideEffects": false,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
+    "serve": "node exec.js && vue-cli-service serve",
+    "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js && npm run locale",
     "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife",
     "build:doc": "vue-cli-service build && npm run tw",
     "tw": "npx tailwind build ./docs/src/styles.css -o ./docs/dist/css/prims.css && cp -r ./docs/public/img ./docs/dist/img && cp ./docs/public/favicon.ico ./docs/dist",
-    "lint": "eslint --fix"
+    "lint": "eslint --fix",
+    "locale": "rm -rf ./dist/locale && cp -r ./src/locale ./dist/locale"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
@@ -51,6 +52,7 @@
     "@rollup/plugin-alias": "^3.1.1",
     "@rollup/plugin-babel": "^5.2.2",
     "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-dynamic-import-vars": "^1.1.1",
     "@rollup/plugin-node-resolve": "^11.0.1",
     "@rollup/plugin-replace": "^2.3.4",
     "@tailwindcss/postcss7-compat": "^2.0.3",
@@ -63,7 +65,7 @@
     "dayjs": "^1.10.4",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
-    "litepie-datepicker": "^1.0.11",
+    "litepie-datepicker": "^1.0.13",
     "minimist": "^1.2.5",
     "postcss": "^7.0.35",
     "prismjs": "^1.23.0",

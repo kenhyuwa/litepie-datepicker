@@ -83,7 +83,8 @@ export default defineComponent({
   },
   setup() {
     const away = ref(null);
-    const dateValue = ref('30 Oktober 2021 ~ 18 Februari 2023');
+    const dateValue = ref([]);
+    // const dateValue = ref('30 Oktober 2021 ~ 18 Februari 2023');
     const shortcuts = () => {
       return [
         {

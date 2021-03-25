@@ -237,7 +237,6 @@ import {
   computed,
   provide,
   nextTick,
-  onMounted,
   isProxy,
   watchEffect,
   watch,
@@ -297,7 +296,6 @@ export default /*#__PURE__*/ defineComponent({
       type: [Boolean, String],
       default: false
     },
-    // Next major release?
     i18n: {
       type: String,
       default: 'en'
@@ -1414,10 +1412,10 @@ export default /*#__PURE__*/ defineComponent({
       }
     });
 
-    onMounted(() => {
+    watchEffect(() => {
       const locale = props.i18n;
       nextTick(() => {
-        import(`dayjs/locale/${locale}.js`)
+        import(`./locale/${locale}.js`)
           .then(() => {
             dayjs.locale(locale);
             let s, e;

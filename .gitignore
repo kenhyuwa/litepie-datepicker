@@ -4,6 +4,7 @@
 # Project files
 node_modules
 dist
+src/locale
 
 # Log files
 npm-debug.log*

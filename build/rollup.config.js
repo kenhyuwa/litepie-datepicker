@@ -7,6 +7,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import babel from '@rollup/plugin-babel';
+import dynamicImportVars from '@rollup/plugin-dynamic-import-vars';
 import PostCSS from 'rollup-plugin-postcss';
 import { terser } from 'rollup-plugin-terser';
 import minimist from 'minimist';
@@ -101,7 +102,8 @@ if (!argv.format || argv.format === 'es') {
     output: {
       file: 'dist/litepie-datepicker.esm.js',
       format: 'esm',
-      exports: 'named'
+      exports: 'named',
+      inlineDynamicImports: true
     },
     plugins: [
       replace(baseConfig.plugins.replace),
@@ -119,7 +121,8 @@ if (!argv.format || argv.format === 'es') {
           ]
         ]
       }),
-      commonjs()
+      commonjs(),
+      dynamicImportVars()
     ]
   };
   buildFormats.push(esConfig);
@@ -134,6 +137,7 @@ if (!argv.format || argv.format === 'cjs') {
       file: 'dist/litepie-datepicker.ssr.js',
       format: 'cjs',
       name: 'LitepieDatepicker',
+      inlineDynamicImports: true,
       exports: 'auto',
       globals
     },
@@ -143,7 +147,8 @@ if (!argv.format || argv.format === 'cjs') {
       vue(baseConfig.plugins.vue),
       ...baseConfig.plugins.postVue,
       babel(baseConfig.plugins.babel),
-      commonjs()
+      commonjs(),
+      dynamicImportVars()
     ]
   };
   buildFormats.push(umdConfig);
@@ -158,6 +163,7 @@ if (!argv.format || argv.format === 'iife') {
       file: 'dist/litepie-datepicker.min.js',
       format: 'iife',
       name: 'LitepieDatepicker',
+      inlineDynamicImports: true,
       exports: 'auto',
       globals
     },
@@ -168,6 +174,7 @@ if (!argv.format || argv.format === 'iife') {
       ...baseConfig.plugins.postVue,
       babel(baseConfig.plugins.babel),
       commonjs(),
+      dynamicImportVars(),
       terser({
         output: {
           ecma: 5
