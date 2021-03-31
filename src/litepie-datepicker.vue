@@ -744,6 +744,7 @@ export default /*#__PURE__*/ defineComponent({
             emit('update:modelValue', [s, e]);
           } else if (useObject()) {
             const obj = {};
+            const [start, end] = Object.keys(props.modelValue);
             obj[start] = s;
             obj[end] = e;
             emit('update:modelValue', obj);
@@ -768,6 +769,7 @@ export default /*#__PURE__*/ defineComponent({
             emit('update:modelValue', [pickerValue.value]);
           } else if (useObject()) {
             const obj = {};
+            const [start] = Object.keys(props.modelValue);
             obj[start] = pickerValue.value;
             emit('update:modelValue', obj);
           } else {

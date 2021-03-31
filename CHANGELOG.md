@@ -70,6 +70,10 @@ All notable changes to this project will be documented in this file.
 
 - Fix issues dynamic import on Vite ([#12](https://github.com/kenhyuwa/litepie-datepicker/issues/12)).
 
+## [1.0.14]
+
+- Fix issues on keyup ([#15](https://github.com/kenhyuwa/litepie-datepicker/issues/15)).
+
 [Released]: https://github.com/kenhyuwa/litepie-datepicker/
 [1.0.0]: https://github.com/kenhyuwa/litepie-datepicker/releases/tag/v1.0.0
 [1.0.1]: https://github.com/kenhyuwa/litepie-datepicker/releases/tag/v1.0.1
@@ -85,3 +89,4 @@ All notable changes to this project will be documented in this file.
 [1.0.11]: https://github.com/kenhyuwa/litepie-datepicker/releases/tag/v1.0.11
 [1.0.12]: https://github.com/kenhyuwa/litepie-datepicker/releases/tag/v1.0.12
 [1.0.13]: https://github.com/kenhyuwa/litepie-datepicker/releases/tag/v1.0.13
+[1.0.14]: https://github.com/kenhyuwa/litepie-datepicker/releases/tag/v1.0.14
