@@ -1,6 +1,6 @@
 <p align="center">
     <a href="#" target="_blank">
-      <img alt="Litepie Datepicker" width="100" style="border-radius: 100%;" src="https://scontent.fcgk25-1.fna.fbcdn.net/v/t1.0-9/22281628_485014348533434_6964733013244745390_n.png?_nc_cat=100&ccb=3&_nc_sid=09cbfe&_nc_eui2=AeFPh0ZaX75opOYLZ_0XkEfD6fapV0TUimDp9qlXRNSKYC_E1nO4VqI9_mOQl_k7XrHF02aqGUdTU9CnhlgaETgY&_nc_ohc=BA2LGeQXOGIAX966oAc&_nc_ht=scontent.fcgk25-1.fna&oh=aed478f71f4f4cce98453c74e0ca9703&oe=60669475">
+      <img alt="Litepie Datepicker" width="100" style="border-radius: 100%;" src="https://raw.githubusercontent.com/kenhyuwa/litepie-datepicker/main/assets/logo.png">
     </a><br><br>
     Litepie Datepicker is a date range picker component for Vue.js and Tailwind CSS, dependent to day.js.
 </p>

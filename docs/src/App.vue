@@ -63,8 +63,8 @@
             <div class="flex">
               <a href="/" class="block">
                 <img
-                  src="https://scontent.fcgk25-1.fna.fbcdn.net/v/t1.0-9/22281628_485014348533434_6964733013244745390_n.png?_nc_cat=100&ccb=3&_nc_sid=09cbfe&_nc_eui2=AeFPh0ZaX75opOYLZ_0XkEfD6fapV0TUimDp9qlXRNSKYC_E1nO4VqI9_mOQl_k7XrHF02aqGUdTU9CnhlgaETgY&_nc_ohc=BA2LGeQXOGIAX966oAc&_nc_ht=scontent.fcgk25-1.fna&oh=aed478f71f4f4cce98453c74e0ca9703&oe=60669475"
-                  alt="Litepie Datepicker Logo"
+                  src="https://raw.githubusercontent.com/kenhyuwa/litepie-datepicker/main/assets/logo.png"
+                  alt="Litepie Datepicker"
                   class="w-auto h-10 rounded-lg shadow-inner"
                 />
               </a>
@@ -1323,7 +1323,7 @@
 
 <script>
 import dayjs from 'dayjs';
-import { reactive, ref, watchEffect } from 'vue';
+import { onMounted, reactive, ref, unref } from 'vue';
 import content from './content';
 import VPrims from './prims';
 
@@ -1334,7 +1334,7 @@ export default {
     const myRef = ref(null);
 
     const formatter = ref({
-      date: 'YYYY-MMM-DD HH:mm:ss',
+      date: 'YYYY-MM-DD HH:mm:ss',
       month: 'MMM'
     });
 
@@ -1344,10 +1344,10 @@ export default {
     });
 
     const heroModel = ref([
-      dayjs().format(formatter.value.date),
+      dayjs().format(unref(formatter).date),
       dayjs()
         .add(1, 'M')
-        .format(formatter.value.date)
+        .format(unref(formatter).date)
     ]);
 
     const dateValue = reactive({
@@ -1407,29 +1407,33 @@ export default {
       ];
     };
 
-    watchEffect(() => {
+    onMounted(() => {
       setInterval(() => {
-        if (myRef.value && !myRef.value.isShow) {
+        if (unref(myRef) && !unref(myRef).isShow) {
           const [s, e] = heroModel.value;
           const { $H, $m, $s } = dayjs();
 
-          myRef.value.pickerValue = `${dayjs(s, formatter.value.date)
+          myRef.value.pickerValue = `${dayjs(s, unref(formatter).date, true)
             .hour($H)
             .minute($m)
             .second($s)
-            .format(formatter.value.date)} ~ ${dayjs(e, formatter.value.date)
+            .format(unref(formatter).date)} ~ ${dayjs(
+            e,
+            unref(formatter).date,
+            true
+          )
             .hour($H)
             .minute($m)
             .second($s)
-            .format(formatter.value.date)}`;
+            .format(unref(formatter).date)}`;
         }
       }, 1000);
 
       setInterval(() => {
-        if (myRef.value) {
-          myRef.value.LitepieDatepickerRef.parentElement.classList.add('dark');
+        if (unref(myRef)) {
+          unref(myRef).LitepieDatepickerRef.parentElement.classList.add('dark');
           setTimeout(() => {
-            myRef.value.LitepieDatepickerRef.parentElement.classList.remove(
+            unref(myRef).LitepieDatepickerRef.parentElement.classList.remove(
               'dark'
             );
           }, 10000);
