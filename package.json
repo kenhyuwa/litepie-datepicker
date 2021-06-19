@@ -59,7 +59,7 @@
     "@vue/cli-plugin-babel": "^4.5.10",
     "@vue/cli-plugin-pwa": "^4.5.11",
     "@vue/cli-service": "^4.5.10",
-    "@vue/compiler-sfc": "^3.0.5",
+    "@vue/compiler-sfc": "^3.1.1",
     "autoprefixer": "^9.8.6",
     "cross-env": "^7.0.3",
     "dayjs": "^1.10.4",
@@ -67,7 +67,7 @@
     "eslint-plugin-prettier": "^3.3.1",
     "litepie-datepicker": "^1.0.13",
     "minimist": "^1.2.5",
-    "postcss": "^7.0.35",
+    "postcss": "^7.0.36",
     "prismjs": "^1.23.0",
     "rollup": "^2.36.1",
     "rollup-plugin-postcss": "^4.0.0",
@@ -80,6 +80,7 @@
   "peerDependencies": {
     "dayjs": "^1.10.4",
     "tailwindcss": "^2.0.3",
+    "tailwindcss-rtl": "^0.7.3",
     "vue": "^3.0.5"
   },
   "engines": {

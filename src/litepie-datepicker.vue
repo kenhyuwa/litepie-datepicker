@@ -18,18 +18,18 @@
         <input
           ref="LitepieInputRef"
           type="text"
-          class="relative block w-full pl-3 pr-12 py-2.5 rounded-lg overflow-hidden text-sm text-litepie-secondary-700 placeholder-litepie-secondary-400 transition-colors bg-white border border-litepie-secondary-300 focus:border-litepie-primary-300 focus:ring focus:ring-litepie-primary-500 focus:ring-opacity-10 focus:outline-none dark:bg-litepie-secondary-800 dark:border-litepie-secondary-700 dark:text-litepie-secondary-100 dark:placeholder-litepie-secondary-500 dark:focus:border-litepie-primary-500 dark:focus:ring-opacity-20"
+          class="relative block w-full ps-3 pe-12 py-2.5 rounded-lg overflow-hidden text-sm text-litepie-secondary-700 placeholder-litepie-secondary-400 transition-colors bg-white border border-litepie-secondary-300 focus:border-litepie-primary-300 focus:ring focus:ring-litepie-primary-500 focus:ring-opacity-10 focus:outline-none dark:bg-litepie-secondary-800 dark:border-litepie-secondary-700 dark:text-litepie-secondary-100 dark:placeholder-litepie-secondary-500 dark:focus:border-litepie-primary-500 dark:focus:ring-opacity-20"
           v-bind="$attrs"
           v-model="pickerValue"
           :placeholder="givenPlaceholder"
           @keyup="keyUp"
         />
         <span
-          class="absolute inset-y-0 right-0 inline-flex items-center rounded-md overflow-hidden"
+          class="absolute inset-y-0 inline-flex items-center overflow-hidden rounded-md end-0"
         >
           <button
             type="button"
-            class="px-2 py-1 mr-1 focus:outline-none text-litepie-secondary-400 dark:text-opacity-70 rounded-md"
+            class="px-2 py-1 rounded-md me-1 focus:outline-none text-litepie-secondary-400 dark:text-opacity-70"
             @click="pickerValue ? clearPicker() : $refs.LitepieInputRef.focus()"
           >
             <svg
@@ -59,25 +59,25 @@
       </label>
     </slot>
     <transition
-      enter-from-class="opacity-0 translate-y-3"
-      enter-to-class="opacity-100 translate-y-0"
-      enter-active-class="transform transition ease-out duration-200"
-      leave-active-class="transform transition ease-in duration-150"
-      leave-from-class="opacity-100 translate-y-0"
-      leave-to-class="opacity-0 translate-y-3"
+      enter-from-class="translate-y-3 opacity-0"
+      enter-to-class="translate-y-0 opacity-100"
+      enter-active-class="transition duration-200 ease-out transform"
+      leave-active-class="transition duration-150 ease-in transform"
+      leave-from-class="translate-y-0 opacity-100"
+      leave-to-class="translate-y-3 opacity-0"
     >
       <div
         v-show="isShow"
         ref="LitepieRef"
         class="absolute z-50 top-full sm:mt-2.5"
-        :class="placement ? 'left-0 right-auto' : 'left-auto right-0'"
+        :class="placement ? 'start-0 end-auto' : 'start-auto end-0'"
       >
         <div
-          class="fixed inset-0 z-50 overflow-y-auto sm:overflow-visible sm:static sm:z-auto bg-white dark:bg-litepie-secondary-800 sm:rounded-lg shadow-sm"
+          class="fixed inset-0 z-50 overflow-y-auto bg-white shadow-sm sm:overflow-visible sm:static sm:z-auto dark:bg-litepie-secondary-800 sm:rounded-lg"
         >
           <div
             class="litepie-datepicker static sm:relative w-full bg-white sm:rounded-lg sm:shadow-sm border-0 sm:border border-black border-opacity-10 px-3 py-3 sm:px-1 sm:py-1.5 dark:bg-litepie-secondary-800 dark:border-litepie-secondary-700 dark:border-opacity-100"
-            :class="placement ? 'place-left' : 'place-right'"
+            :class="placement ? 'place-start' : 'place-end'"
           >
             <div class="flex flex-wrap lg:flex-nowrap">
               <!--          Shortcut-->
@@ -89,19 +89,19 @@
                 :i18n="options.shortcuts"
               />
               <!--          Calendar-->
-              <div class="relative flex flex-wrap sm:flex-nowrap p-1">
+              <div class="relative flex flex-wrap p-1 sm:flex-nowrap">
                 <div
                   v-if="asRange() && !asSingle"
-                  class="hidden absolute inset-0 sm:flex justify-center items-center"
+                  class="absolute inset-0 items-center justify-center hidden sm:flex"
                 >
                   <div
-                    class="w-8 sm:w-1 h-1 sm:h-8 bg-litepie-primary-500 rounded-xl shadow-inner"
+                    class="w-8 h-1 shadow-inner sm:w-1 sm:h-8 bg-litepie-primary-500 rounded-xl"
                   ></div>
                 </div>
                 <div
                   class="relative w-full sm:w-80"
                   :class="{
-                    'mb-3 sm:mb-0 sm:mr-2': asRange() && !asSingle
+                    'mb-3 sm:mb-0 sm:me-2': asRange() && !asSingle
                   }"
                 >
                   <!--            Header-->
@@ -140,7 +140,7 @@
                 <!--          If use range-->
                 <div
                   v-if="asRange() && !asSingle"
-                  class="relative w-full sm:w-80 overflow-hidden mt-3 sm:mt-0 sm:ml-2"
+                  class="relative w-full mt-3 overflow-hidden sm:w-80 sm:mt-0 sm:ms-2"
                 >
                   <!--            Header-->
                   <litepie-header
@@ -187,7 +187,7 @@
                 <div class="mt-1.5 sm:flex sm:flex-row-reverse">
                   <button
                     type="button"
-                    class="away-apply-picker w-full transition ease-out duration-300 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-litepie-primary-600 text-base font-medium text-white hover:bg-litepie-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-litepie-primary-500 sm:ml-3 sm:w-auto sm:text-sm dark:ring-offset-litepie-secondary-800 disabled:cursor-not-allowed"
+                    class="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white transition duration-300 ease-out border border-transparent rounded-md shadow-sm away-apply-picker bg-litepie-primary-600 hover:bg-litepie-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-litepie-primary-500 sm:ms-3 sm:w-auto sm:text-sm dark:ring-offset-litepie-secondary-800 disabled:cursor-not-allowed"
                     :disabled="
                       asSingle ? applyValue.length < 1 : applyValue.length < 2
                     "
@@ -196,7 +196,7 @@
                   ></button>
                   <button
                     type="button"
-                    class="mt-3 away-cancel-picker w-full transition ease-out duration-300 inline-flex justify-center rounded-md border border-litepie-secondary-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-litepie-secondary-700 hover:bg-litepie-secondary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-litepie-primary-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm dark:ring-offset-litepie-secondary-800"
+                    class="inline-flex justify-center w-full px-4 py-2 mt-3 text-base font-medium transition duration-300 ease-out bg-white border rounded-md shadow-sm away-cancel-picker border-litepie-secondary-300 text-litepie-secondary-700 hover:bg-litepie-secondary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-litepie-primary-500 sm:mt-0 sm:ms-3 sm:w-auto sm:text-sm dark:ring-offset-litepie-secondary-800"
                     v-text="options.footer.cancel"
                   ></button>
                 </div>
@@ -209,7 +209,7 @@
                 <div class="mt-1.5 sm:flex sm:flex-row-reverse">
                   <button
                     type="button"
-                    class="away-cancel-picker w-full transition ease-out duration-300 inline-flex justify-center rounded-md border border-litepie-secondary-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-litepie-secondary-700 hover:bg-litepie-secondary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-litepie-primary-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm dark:ring-offset-litepie-secondary-800"
+                    class="inline-flex justify-center w-full px-4 py-2 text-base font-medium transition duration-300 ease-out bg-white border rounded-md shadow-sm away-cancel-picker border-litepie-secondary-300 text-litepie-secondary-700 hover:bg-litepie-secondary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-litepie-primary-500 sm:mt-0 sm:ms-3 sm:w-auto sm:text-sm dark:ring-offset-litepie-secondary-800"
                     v-text="options.footer.cancel"
                   ></button>
                 </div>
@@ -1142,16 +1142,16 @@ export default /*#__PURE__*/ defineComponent({
       if (s && e && !off) {
         if (date.isSame(s, 'date')) {
           classes = e.isAfter(s, 'date')
-            ? 'bg-litepie-primary-500 text-white font-bold rounded-l-full disabled:cursor-not-allowed'
-            : 'bg-litepie-primary-500 text-white font-bold rounded-r-full disabled:cursor-not-allowed';
+            ? 'bg-litepie-primary-500 text-white font-bold rounded-s-full disabled:cursor-not-allowed'
+            : 'bg-litepie-primary-500 text-white font-bold rounded-e-full disabled:cursor-not-allowed';
           if (s.isSame(e, 'date')) {
             classes = `bg-litepie-primary-500 text-white font-bold rounded-full disabled:cursor-not-allowed`;
           }
         }
         if (date.isSame(e, 'date')) {
           classes = e.isAfter(s, 'date')
-            ? 'bg-litepie-primary-500 text-white font-bold rounded-r-full disabled:cursor-not-allowed'
-            : 'bg-litepie-primary-500 text-white font-bold rounded-l-full disabled:cursor-not-allowed';
+            ? 'bg-litepie-primary-500 text-white font-bold rounded-e-full disabled:cursor-not-allowed'
+            : 'bg-litepie-primary-500 text-white font-bold rounded-s-full disabled:cursor-not-allowed';
           if (s.isSame(e, 'date')) {
             classes = `bg-litepie-primary-500 text-white font-bold rounded-full disabled:cursor-not-allowed`;
           }
@@ -1226,17 +1226,17 @@ export default /*#__PURE__*/ defineComponent({
       if (s && e) {
         if (date.isSame(s, 'date')) {
           if (e.isBefore(s)) {
-            classes += ` rounded-r-full inset-0`;
+            classes += ` rounded-e-full inset-0`;
           }
           if (s.isBefore(e)) {
-            classes += ` rounded-l-full inset-0`;
+            classes += ` rounded-s-full inset-0`;
           }
         } else if (date.isSame(e, 'date')) {
           if (e.isBefore(s)) {
-            classes += ` rounded-l-full inset-0`;
+            classes += ` rounded-s-full inset-0`;
           }
           if (s.isBefore(e)) {
-            classes += ` rounded-r-full inset-0`;
+            classes += ` rounded-e-full inset-0`;
           }
         } else {
           classes += ` inset-0`;
@@ -1606,10 +1606,18 @@ export default /*#__PURE__*/ defineComponent({
       calc(100% + var(--litepie-datepicker))
   );
 }
-.litepie-datepicker.place-left::before {
-  @apply left-1;
+[dir="rtl"] .litepie-datepicker::before {
+  transform: translate(-50%, -50%) rotate(-45deg);
 }
-.litepie-datepicker.place-right::before {
-  @apply right-5;
+.litepie-datepicker.place-start::before {
+  @apply start-1;
+}
+.litepie-datepicker.place-end::before {
+  @apply end-5;
+}
+
+[dir="rtl"] .rtl-flip{
+  --tw-scale-x: -1 !important;
+  @apply transform;
 }
 </style>

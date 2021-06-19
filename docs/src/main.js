@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import App from './App.vue';
 import LitepieDatepicker from 'litepie-datepicker';
+// import LitepieDatepicker from '../../src/entry';
 import VPrims from './prims';
 
 import 'tailwindcss/tailwind.css';

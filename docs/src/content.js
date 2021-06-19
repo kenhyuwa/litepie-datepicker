@@ -671,6 +671,47 @@ export default {
 };
 </script>`;
 
+const i18n_rtl = `<template>
+<div class="flex">
+  <litepie-datepicker
+    i18n="ar"
+    :auto-apply="false"
+    :options="options"
+    v-model="dateValue"
+  ></litepie-datepicker>
+</div>
+</template>
+
+<script>
+import { ref } from 'vue';
+
+export default {
+name: 'MyComponent',
+setup() {
+  const dateValue = ref([]);
+  const options = ref({
+    shortcuts: {
+      shortcuts: {
+      today: 'اليوم',
+      yesterday: 'أمس',
+      past: period =>  'آخر' + period + (period > 10 ? 'يوم' : 'أيام'),
+      currentMonth: 'الشهر الحالي',
+      pastMonth: 'الشهر السابق'
+    },
+      footer: {
+        apply: 'تطبيق',
+        cancel: 'إلغاء'
+      }
+    })
+
+  return {
+    dateValue,
+    options
+  };
+}
+};
+</script>`;
+
   return {
     twConfig,
     itWorks,
@@ -696,7 +737,8 @@ export default {
       useObject,
       useString,
       customShortcuts,
-      i18n
+      i18n,
+      i18n_rtl
     }
   };
 };

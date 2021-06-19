@@ -16,7 +16,7 @@ module.exports = {
         fuchsia: colors.fuchsia,
         lime: colors.lime,
         orange: colors.orange,
-        'light-blue': colors.lightBlue,
+        'light-blue': colors.sky,
         'litepie-primary': colors.emerald,
         'litepie-secondary': colors.coolGray
       },
@@ -35,5 +35,7 @@ module.exports = {
       textColor: ['disabled']
     }
   },
-  plugins: []
+  plugins: [
+    require('tailwindcss-rtl')
+  ]
 };
