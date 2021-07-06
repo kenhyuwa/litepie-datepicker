@@ -410,7 +410,7 @@ export default /*#__PURE__*/ defineComponent({
                 v.off = previous.month() !== v.month();
                 v.sunday = v.day() === 0;
                 v.disabled =
-                  useDisableDate(v, props) && !v.isToday() && !inRangeDate(v);
+                  useDisableDate(v, props) && !inRangeDate(v);
                 v.inRange = () => {
                   if (props.asSingle && !props.useRange) {
                     return previous.month() !== v.month();
@@ -536,7 +536,7 @@ export default /*#__PURE__*/ defineComponent({
                 v.off = next.month() !== v.month();
                 v.sunday = v.day() === 0;
                 v.disabled =
-                  useDisableDate(v, props) && !v.isToday() && !inRangeDate(v);
+                  useDisableDate(v, props) && !inRangeDate(v);
                 v.inRange = () => {
                   if (props.asSingle && !props.useRange) {
                     return next.month() !== v.month();
