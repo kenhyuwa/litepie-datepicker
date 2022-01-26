@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex justify-between items-center px-2 py-1.5 rounded-md border border-black border-opacity-10 dark:border-litepie-secondary-700 dark:border-opacity-100"
+    class="flex justify-between items-center px-2 py-1.5 rounded-md border border-black/[.1] dark:border-litepie-secondary-700/[1]"
   >
     <div class="flex-shrink-0">
       <span
