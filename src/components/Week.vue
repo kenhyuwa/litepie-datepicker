@@ -1,6 +1,6 @@
 <template>
   <div
-    class="grid grid-cols-7 py-2 mt-0.5 border-b border-black border-opacity-10 dark:border-litepie-secondary-700 dark:border-opacity-100"
+    class="grid grid-cols-7 py-2 mt-0.5 border-b border-black/[.1] dark:border-litepie-secondary-700/[1]"
   >
     <div
       v-for="(day, keyDay) in weeks"

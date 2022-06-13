@@ -5,11 +5,11 @@
       class="absolute right-1.5 top-1/3 mt-40 sm:mt-0 sm:top-0 bottom-0 w-full xl:w-1/2 bg-light-blue-500 shadow-2xl rounded-tl-3xl transform translate-x-10 sm:translate-x-24 translate-y-32 sm:translate-y-1/2 lg:translate-y-1/2 xl:translate-y-36 -rotate-6"
     ></div>
     <div
-      class="absolute right-0 top-1/3 mt-40 sm:mt-0 sm:top-0 bottom-0 w-full xl:w-1/2 bg-white shadow-lg rounded-tl-3xl overflow-hidden transform translate-x-10 sm:translate-x-24 translate-y-32 sm:translate-y-1/2 lg:translate-y-1/2 xl:translate-y-36 -rotate-2 border border-black border-opacity-5"
+      class="absolute right-0 top-1/3 mt-40 sm:mt-0 sm:top-0 bottom-0 w-full xl:w-1/2 bg-white shadow-lg rounded-tl-3xl overflow-hidden transform translate-x-10 sm:translate-x-24 translate-y-32 sm:translate-y-1/2 lg:translate-y-1/2 xl:translate-y-36 -rotate-2 border border-black/[.05]"
     >
       <div class="relative">
         <div
-          class="absolute inset-x-0 px-4 py-4 space-x-3 lg:space-x-4 bg-gradient-to-r from-gray-100 to-white flex items-center border-b border-black border-opacity-5"
+          class="absolute inset-x-0 px-4 py-4 space-x-3 lg:space-x-4 bg-gradient-to-r from-gray-100 to-white flex items-center border-b border-black/[.05]"
         >
           <div class="inline-flex space-x-1.5">
             <div class="w-3 h-3 border-2 rounded-full border-red-500"></div>
@@ -17,7 +17,7 @@
             <div class="w-3 h-3 border-2 rounded-full border-green-400"></div>
           </div>
           <div
-            class="flex flex-grow items-center rounded-md px-3 py-2 space-x-1.5 bg-white border border-black border-opacity-5 shadow-sm"
+            class="flex flex-grow items-center rounded-md px-3 py-2 space-x-1.5 bg-white border border-black/[.05] shadow-sm"
           >
             <svg
               class="w-5 h-5 text-green-400"
@@ -50,7 +50,7 @@
       </div>
     </div>
     <div
-      class="absolute inset-x-0 bottom-0 border-t border-black border-opacity-5"
+      class="absolute inset-x-0 bottom-0 border-t border-black/[.05]"
     ></div>
   </div>
   <div class="absolute inset-0">
@@ -58,7 +58,7 @@
       <header class="relative z-10 max-w-screen-lg xl:max-w-screen-xl mx-auto">
         <div class="relative px-4 sm:px-6 md:px-8 mb-14 sm:mb-20 xl:mb-8">
           <div
-            class="border-b border-gray-700 border-opacity-70 py-4 flex items-center justify-between mb-20 -mx-4 px-4 sm:mx-0 sm:px-0 lg:mb-24 xl:mb-32 2xl:mb-40"
+            class="border-b border-gray-700 border-black/[.7] py-4 flex items-center justify-between mb-20 -mx-4 px-4 sm:mx-0 sm:px-0 lg:mb-24 xl:mb-32 2xl:mb-40"
           >
             <div class="flex">
               <a href="/" class="block">
