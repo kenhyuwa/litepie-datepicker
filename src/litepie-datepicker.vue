@@ -89,7 +89,7 @@
                 :i18n="options.shortcuts"
               />
               <!--          Calendar-->
-              <div class="relative flex flex-wrap sm:flex-nowrap p-1">
+              <div class="relative flex flex-wrap sm:flex-nowrap p-1 w-full">
                 <div
                   v-if="asRange() && !asSingle"
                   class="hidden absolute inset-0 sm:flex justify-center items-center"
