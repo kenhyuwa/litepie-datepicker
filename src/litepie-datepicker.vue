@@ -125,7 +125,7 @@
                     <!--                Calendar-->
                     <div v-show="panel.previous.calendar">
                       <!--          Days of weeks-->
-                      <litepie-week :weeks="weeks" />
+                      <litepie-week :weeks="weeks" :startWeek="startWeek"/>
                       <!--          Date of months-->
                       <litepie-calendar
                         :calendar="calendar.previous"
@@ -165,7 +165,7 @@
                     <!--                Calendar-->
                     <div v-show="panel.next.calendar">
                       <!--          Days of weeks-->
-                      <litepie-week :weeks="weeks" />
+                      <litepie-week :weeks="weeks" :startWeek="startWeek"/>
                       <!--          Date of months-->
                       <litepie-calendar
                         as-prev-or-next
@@ -354,6 +354,10 @@ export default /*#__PURE__*/ defineComponent({
           cancel: 'Cancel'
         }
       })
+    },
+    startWeek: {
+      type: Number,
+      default: 0
     }
   },
   inheritAttrs: false,
@@ -401,9 +405,9 @@ export default /*#__PURE__*/ defineComponent({
       return {
         previous: {
           date: () => {
-            return usePreviousDate(previous)
+            return usePreviousDate(previous,props.startWeek)
               .concat(useCurrentDate(previous))
-              .concat(useNextDate(previous))
+              .concat(useNextDate(previous,props.startWeek))
               .map(v => {
                 v.today = v.isToday();
                 v.active = previous.month() === v.month();
@@ -527,9 +531,9 @@ export default /*#__PURE__*/ defineComponent({
         },
         next: {
           date: () => {
-            return usePreviousDate(next)
+            return usePreviousDate(next,props.startWeek)
               .concat(useCurrentDate(next))
-              .concat(useNextDate(next))
+              .concat(useNextDate(next,props.startWeek))
               .map(v => {
                 v.today = v.isToday();
                 v.active = next.month() === v.month();
