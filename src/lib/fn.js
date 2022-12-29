@@ -1,6 +1,7 @@
-export const usePreviousDate = date => {
+export const usePreviousDate = (date,startWeek) => {
   const display = [];
-  for (let i = 0; i <= date.date(0).day(); i++) {
+  let start= (7-startWeek >=0 && 7-startWeek<7) ? 7-startWeek : 0;
+  for (let i = 0; i <= date.date(start).day(); i++) {
     display.push(date.date(0).subtract(i, 'day'));
   }
   return display.sort((a, b) => a.date() - b.date());
@@ -15,11 +16,11 @@ export const useCurrentDate = date => {
   );
 };
 
-export const useNextDate = date => {
+export const useNextDate = (date,startWeek) => {
   const display = [];
   for (
     let i = 1;
-    i <= 42 - (usePreviousDate(date).length + date.daysInMonth());
+    i <= 42 - (usePreviousDate(date,startWeek).length + date.daysInMonth());
     i++
   ) {
     display.push(
